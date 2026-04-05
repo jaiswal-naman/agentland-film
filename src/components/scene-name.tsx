@@ -20,6 +20,50 @@ export default function SceneName() {
       const pinned = pinnedRef.current;
       if (!container || !pinned) return;
 
+      const isMobile = window.innerWidth < 768;
+
+      if (isMobile) {
+        // Mobile: simple fade-in, no character-by-character
+        const nameEl = pinned.querySelector(".name-text");
+        const wordsContainer = pinned.querySelector(".words-container");
+
+        gsap.fromTo(
+          nameEl,
+          { opacity: 0, y: 20 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: nameEl,
+              start: "top 85%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+
+        gsap.fromTo(
+          wordsContainer,
+          { opacity: 0, y: 15 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            delay: 0.3,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: nameEl,
+              start: "top 85%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+
+        return;
+      }
+
+      // Desktop: existing pin+scrub logic with character animation
       const trigger = ScrollTrigger.create({
         trigger: container,
         start: "top top",
@@ -74,27 +118,30 @@ export default function SceneName() {
   );
 
   return (
-    <div ref={containerRef} className="relative h-[140vh]">
+    <div ref={containerRef} className="relative min-h-[60vh] py-24 md:py-0 md:h-[140vh]">
       <div
         ref={pinnedRef}
-        className="h-screen w-full bg-[#050507] overflow-hidden flex flex-col items-center justify-center"
+        className="min-h-[60vh] md:h-screen w-full bg-[#050507] overflow-hidden flex flex-col items-center justify-center"
       >
-        {/* Name */}
-        <h2
-          className="text-fluid-name font-extrabold tracking-tight leading-none"
-        >
-          {name.split("").map((char, i) => (
-            <span key={i} className="name-char inline-block opacity-0 text-[#E8E8E8]">
-              {char}
-            </span>
-          ))}
+        {/* Name -- on mobile: single text block. On desktop: character-by-character */}
+        <h2 className="text-fluid-name font-extrabold tracking-tight leading-none">
+          {/* Mobile: single block fade */}
+          <span className="name-text md:hidden text-[#E8E8E8]">{name}</span>
+          {/* Desktop: per-character animation */}
+          <span className="hidden md:inline">
+            {name.split("").map((char, i) => (
+              <span key={i} className="name-char inline-block opacity-0 text-[#E8E8E8]">
+                {char}
+              </span>
+            ))}
+          </span>
         </h2>
 
         {/* Sub-words */}
-        <div className="mt-4 sm:mt-8 flex items-center gap-2 sm:gap-4 flex-wrap justify-center px-4">
+        <div className="words-container mt-4 sm:mt-8 flex items-center gap-2 sm:gap-4 flex-wrap justify-center px-4">
           {words.map((word, i) => (
             <span key={i} className="flex items-center gap-2 sm:gap-4">
-              <span className="sub-word text-[14px] sm:text-[18px] md:text-[24px] text-[#888888] tracking-[0.15em] sm:tracking-[0.3em] uppercase opacity-0">
+              <span className="sub-word text-[12px] sm:text-[18px] md:text-[24px] text-[#888888] tracking-[0.15em] sm:tracking-[0.3em] uppercase md:opacity-0">
                 {word}
               </span>
               {i < words.length - 1 && (

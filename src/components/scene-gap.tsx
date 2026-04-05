@@ -17,6 +17,33 @@ export default function SceneGap() {
       const pinned = pinnedRef.current;
       if (!container || !pinned) return;
 
+      const isMobile = window.innerWidth < 768;
+
+      if (isMobile) {
+        // Mobile: simple time-based animations, no pin
+        const elements = pinned.querySelectorAll(".animate-in");
+        elements.forEach((el, i) => {
+          gsap.fromTo(
+            el,
+            { opacity: 0, y: 30 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.6,
+              delay: i * 0.3,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: el,
+                start: "top 85%",
+                toggleActions: "play none none none",
+              },
+            }
+          );
+        });
+        return;
+      }
+
+      // Desktop: existing pin+scrub logic
       const trigger = ScrollTrigger.create({
         trigger: container,
         start: "top top",
@@ -97,54 +124,60 @@ export default function SceneGap() {
   );
 
   return (
-    <div ref={containerRef} className="relative h-[160vh]">
+    <div ref={containerRef} className="relative min-h-screen md:h-[160vh]">
       <div
         ref={pinnedRef}
-        className="h-screen w-full bg-[#050507] overflow-hidden relative flex items-center"
+        className="min-h-screen md:h-screen w-full bg-[#050507] overflow-hidden relative flex items-center"
       >
-        {/* Stats container -- stacks vertically on mobile, side-by-side on md+ */}
-        <div className="flex flex-col md:flex-row items-center justify-center md:justify-between w-full px-6 sm:px-12 md:px-[120px] gap-8 md:gap-0">
-          {/* Left: 79% */}
-          <div className="text-center md:text-left">
+        {/* Mobile: stacked vertically, centered. Desktop: side-by-side */}
+        <div className="flex flex-col md:flex-row items-center justify-center md:justify-between w-full px-6 sm:px-12 md:px-[120px] gap-0 md:gap-0 py-24 md:py-0">
+          {/* 79% */}
+          <div className="text-center animate-in">
             <div
-              className="left-num text-fluid-stat font-extrabold leading-none tracking-tighter text-[#E8E8E8] opacity-0"
+              className="left-num text-fluid-stat font-extrabold leading-none tracking-tighter text-[#E8E8E8] md:opacity-0"
             >
               79
               <span
                 className="text-[#888888]"
-                style={{ fontSize: "clamp(40px, 6vw, 80px)" }}
+                style={{ fontSize: "clamp(24px, 6vw, 80px)" }}
               >
                 %
               </span>
             </div>
-            <p className="left-label text-[16px] sm:text-[20px] text-[#888888] mt-2 opacity-0">
+            <p className="left-label text-[16px] sm:text-[20px] text-[#888888] mt-2 md:opacity-0">
               adopting
             </p>
           </div>
 
-          {/* Right: 11% */}
-          <div className="text-center md:text-right">
+          {/* Spacer on mobile */}
+          <div className="py-8 md:py-0" />
+
+          {/* 11% */}
+          <div className="text-center animate-in">
             <div
-              className="right-num text-fluid-stat font-extrabold leading-none tracking-tighter text-[#E8E8E8] opacity-0"
+              className="right-num text-fluid-stat font-extrabold leading-none tracking-tighter md:opacity-0"
             >
-              11
+              <span className="gradient-text-accent">11</span>
               <span
                 className="text-[#888888]"
-                style={{ fontSize: "clamp(40px, 6vw, 80px)" }}
+                style={{ fontSize: "clamp(24px, 6vw, 80px)" }}
               >
                 %
               </span>
             </div>
-            <p className="right-label text-[16px] sm:text-[20px] text-[#888888] mt-2 opacity-0">
+            <p className="right-label text-[16px] sm:text-[20px] text-[#888888] mt-2 md:opacity-0">
               running
             </p>
           </div>
-        </div>
 
-        {/* Bottom: verdict */}
-        <p className="bottom-text absolute bottom-[15%] left-1/2 -translate-x-1/2 text-[16px] sm:text-[20px] text-[#888888] opacity-0 whitespace-nowrap">
-          The rest are stuck.
-        </p>
+          {/* Spacer on mobile */}
+          <div className="py-8 md:py-0" />
+
+          {/* Bottom verdict -- on mobile it flows naturally, on desktop it's absolute */}
+          <p className="bottom-text animate-in text-[20px] md:text-[16px] sm:text-[20px] text-[#888888] md:opacity-0 md:absolute md:bottom-[15%] md:left-1/2 md:-translate-x-1/2 whitespace-nowrap text-center">
+            The rest are stuck.
+          </p>
+        </div>
       </div>
     </div>
   );

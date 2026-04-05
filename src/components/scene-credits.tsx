@@ -39,7 +39,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
         onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-between py-5 text-left group"
       >
-        <span className="text-[16px] font-medium text-[#E8E8E8]">{q}</span>
+        <span className="text-[14px] md:text-[16px] font-medium text-[#E8E8E8]">{q}</span>
         <svg
           className={`w-5 h-5 text-[#888888] transition-transform duration-300 flex-shrink-0 ml-4 ${open ? "rotate-45" : ""}`}
           fill="none"
@@ -58,7 +58,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
         className="overflow-hidden transition-all duration-300"
         style={{ maxHeight: open ? "200px" : "0px", opacity: open ? 1 : 0 }}
       >
-        <p className="pb-5 text-[15px] sm:text-[18px] text-[#888888] leading-relaxed">
+        <p className="pb-5 text-[14px] sm:text-[15px] md:text-[18px] text-[#888888] leading-relaxed">
           {a}
         </p>
       </div>
@@ -107,14 +107,15 @@ export default function SceneCredits() {
         <div className="credit-animate max-w-xl pl-6 sm:pl-12 lg:pl-[120px]">
           {/* Decorative quote mark */}
           <div
-            className="text-[80px] sm:text-[120px] leading-none font-serif select-none -mb-10 sm:-mb-14"
+            className="text-[60px] sm:text-[80px] md:text-[120px] leading-none font-serif select-none -mb-6 sm:-mb-10 md:-mb-14"
             style={{ color: "#1A1A1A" }}
           >
             &ldquo;
           </div>
 
           <blockquote className="text-[18px] sm:text-[22px] md:text-[24px] italic text-[#E8E8E8] leading-relaxed tracking-tight mb-6">
-            The bottleneck was never intelligence. It was the missing layer.
+            The bottleneck was never intelligence. It was the{" "}
+            <span className="text-[#6366F1] font-semibold not-italic">missing layer</span>.
           </blockquote>
 
           <div className="text-[18px] text-[#888888]">Naman Jaiswal</div>
@@ -127,17 +128,17 @@ export default function SceneCredits() {
       {/* Final CTA */}
       <section className="pt-20 sm:pt-40 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 text-center">
         <div className="credit-animate">
-          <h2 className="text-fluid-heading font-bold tracking-tight leading-none text-[#E8E8E8]">
+          <h2 className="text-[32px] md:text-fluid-heading font-bold tracking-tight leading-none text-[#E8E8E8]">
             Your business.
           </h2>
-          <h2 className="text-fluid-heading font-bold tracking-tight leading-none text-[#6366F1] mt-2">
+          <h2 className="text-[32px] md:text-fluid-heading font-bold tracking-tight leading-none text-[#6366F1] mt-2">
             Automated.
           </h2>
         </div>
 
         <div className="credit-animate mt-16">
           <button
-            className="py-4 px-10 rounded-lg font-semibold text-[#050507] text-[16px] transition-all duration-300 hover:tracking-[0.05em] hover:-translate-y-0.5 hover:opacity-90"
+            className="w-full md:w-auto py-3 md:py-4 px-10 mx-4 md:mx-0 rounded-lg font-semibold text-[#050507] text-[16px] transition-all duration-300 hover:tracking-[0.05em] hover:-translate-y-0.5 hover:opacity-90"
             style={{ backgroundColor: "#FFFFFF" }}
           >
             Start &rarr;

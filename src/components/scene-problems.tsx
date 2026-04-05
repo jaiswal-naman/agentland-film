@@ -24,6 +24,33 @@ export default function SceneProblems() {
       const pinned = pinnedRef.current;
       if (!container || !pinned) return;
 
+      const isMobile = window.innerWidth < 768;
+
+      if (isMobile) {
+        // Mobile: each problem pair fades in when scrolled into view
+        const groups = pinned.querySelectorAll(".problem-group");
+        groups.forEach((group, i) => {
+          gsap.fromTo(
+            group,
+            { opacity: 0, y: 30 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.6,
+              delay: i * 0.1,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: group,
+                start: "top 85%",
+                toggleActions: "play none none none",
+              },
+            }
+          );
+        });
+        return;
+      }
+
+      // Desktop: existing pin+scrub logic
       const trigger = ScrollTrigger.create({
         trigger: container,
         start: "top top",
@@ -87,22 +114,23 @@ export default function SceneProblems() {
   );
 
   return (
-    <div ref={containerRef} className="relative h-[200vh]">
+    <div ref={containerRef} className="relative min-h-screen md:h-[200vh]">
       <div
         ref={pinnedRef}
-        className="h-screen w-full bg-[#050507] overflow-hidden flex items-center"
+        className="min-h-screen md:h-screen w-full bg-[#050507] overflow-hidden flex items-center"
       >
-        <div className="pl-6 sm:pl-12 lg:pl-[120px] pr-4 sm:pr-8 relative w-full">
+        {/* Mobile: stacked naturally. Desktop: absolute positioned for pin/scrub */}
+        <div className="pl-6 sm:pl-12 lg:pl-[120px] pr-6 sm:pr-8 relative w-full py-24 md:py-0">
           {statements.map((item, i) => (
             <div
               key={i}
-              className="problem-group absolute"
+              className="problem-group md:absolute py-8 md:py-0"
               style={{ maxWidth: "640px" }}
             >
-              <p className="problem-word text-[clamp(40px,7vw,60px)] font-bold text-[#E8E8E8] leading-tight opacity-0">
+              <p className="problem-word text-[32px] md:text-[clamp(40px,7vw,60px)] font-bold text-[#E8E8E8] leading-tight md:opacity-0">
                 {item.word}
               </p>
-              <p className="problem-sentence text-[clamp(20px,3vw,28px)] text-[#888] mt-3 leading-relaxed opacity-0">
+              <p className="problem-sentence text-[18px] md:text-[clamp(20px,3vw,28px)] text-[#888] mt-3 leading-relaxed md:opacity-0">
                 {item.sentence}
               </p>
             </div>

@@ -23,6 +23,33 @@ export default function SceneInvitation() {
       const pinned = pinnedRef.current;
       if (!container || !pinned) return;
 
+      const isMobile = window.innerWidth < 768;
+
+      if (isMobile) {
+        // Mobile: simple fade-in, no pin
+        const elements = pinned.querySelectorAll(".animate-in");
+        elements.forEach((el, i) => {
+          gsap.fromTo(
+            el,
+            { opacity: 0, y: 30 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.6,
+              delay: i * 0.2,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: el,
+                start: "top 85%",
+                toggleActions: "play none none none",
+              },
+            }
+          );
+        });
+        return;
+      }
+
+      // Desktop: existing pin+scrub logic
       const trigger = ScrollTrigger.create({
         trigger: container,
         start: "top top",
@@ -70,20 +97,20 @@ export default function SceneInvitation() {
   );
 
   return (
-    <div ref={containerRef} className="relative h-[140vh]">
+    <div ref={containerRef} className="relative min-h-screen md:h-[140vh]">
       <div
         ref={pinnedRef}
-        className="h-screen w-full bg-[#050507] overflow-hidden flex items-center justify-center"
+        className="min-h-screen md:h-screen w-full bg-[#050507] overflow-hidden flex items-center justify-center py-24 md:py-0"
       >
         <div className="w-full max-w-lg mx-4 sm:mx-auto px-4 sm:px-6 text-center">
           {/* Headline */}
-          <h2 className="inv-headline text-[clamp(32px,5vw,48px)] font-semibold tracking-tight text-[#E8E8E8] mb-12 opacity-0">
+          <h2 className="inv-headline animate-in text-[28px] md:text-[clamp(32px,5vw,48px)] font-semibold tracking-tight text-[#E8E8E8] mb-12 md:opacity-0">
             See what you&apos;re missing.
           </h2>
 
           {/* Card */}
           <div
-            className="inv-card rounded-xl border border-[#1A1A1A] bg-[#0C0C0E] p-5 sm:p-8 opacity-0"
+            className="inv-card animate-in rounded-xl border border-[#1A1A1A] bg-[#0C0C0E] p-4 sm:p-8 md:opacity-0"
             style={{ maxWidth: "448px", margin: "0 auto" }}
           >
             {/* Label */}
@@ -96,7 +123,7 @@ export default function SceneInvitation() {
               {steps.map((step, i) => (
                 <div
                   key={i}
-                  className="flex items-center gap-3 text-[#E8E8E8] text-[16px]"
+                  className="flex items-center gap-3 text-[#E8E8E8] text-[14px] md:text-[16px]"
                 >
                   <span className="text-[#888888] text-[14px]">&rarr;</span>
                   <span>{step}</span>
@@ -113,7 +140,7 @@ export default function SceneInvitation() {
             </button>
 
             {/* Trust signal */}
-            <p className="text-[14px] text-[#555] mt-4">Read-only access &middot; No credit card &middot; Results in 24 hours</p>
+            <p className="text-[12px] md:text-[14px] text-[#555] mt-4">Read-only access &middot; No credit card &middot; Results in 24 hours</p>
           </div>
         </div>
       </div>

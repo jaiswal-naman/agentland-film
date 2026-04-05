@@ -30,6 +30,7 @@ html {
   background: var(--color-base);
   color: var(--color-text);
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 @media (pointer: fine) {
@@ -122,9 +123,15 @@ body {
   overflow: visible !important;
 }
 
+@media (max-width: 768px) {
+  .pin-spacer {
+    padding: 0 !important;
+  }
+}
+
 /* ── Mobile fluid typography ── */
-.text-fluid-hero { font-size: clamp(80px, 15vw, 200px); }
-.text-fluid-stat { font-size: clamp(100px, 22vw, 300px); }
-.text-fluid-phase { font-size: clamp(60px, 12vw, 160px); }
-.text-fluid-heading { font-size: clamp(36px, 5vw, 80px); }
-.text-fluid-name { font-size: clamp(48px, 10vw, 120px); }
+.text-fluid-hero { font-size: clamp(40px, 12vw, 200px); }
+.text-fluid-stat { font-size: clamp(60px, 18vw, 300px); }
+.text-fluid-phase { font-size: clamp(32px, 10vw, 160px); }
+.text-fluid-heading { font-size: clamp(28px, 6vw, 80px); }
+.text-fluid-name { font-size: clamp(32px, 8vw, 120px); }

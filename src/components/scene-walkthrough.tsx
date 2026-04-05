@@ -48,6 +48,33 @@ export default function SceneWalkthrough() {
       const pinned = pinnedRef.current;
       if (!container || !pinned) return;
 
+      const isMobile = window.innerWidth < 768;
+
+      if (isMobile) {
+        // Mobile: each phase fades in when scrolled into view, no pin
+        const phaseEls = pinned.querySelectorAll(".wt-phase-mobile");
+        phaseEls.forEach((el, i) => {
+          gsap.fromTo(
+            el,
+            { opacity: 0, y: 30 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.6,
+              delay: i * 0.05,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: el,
+                start: "top 85%",
+                toggleActions: "play none none none",
+              },
+            }
+          );
+        });
+        return;
+      }
+
+      // Desktop: existing pin+scrub logic
       const trigger = ScrollTrigger.create({
         trigger: container,
         start: "top top",
@@ -147,12 +174,35 @@ export default function SceneWalkthrough() {
   );
 
   return (
-    <div ref={containerRef} className="relative h-[260vh]">
+    <div ref={containerRef} className="relative min-h-screen md:h-[260vh]">
       <div
         ref={pinnedRef}
-        className="h-screen w-full bg-[#050507] overflow-hidden relative"
+        className="min-h-screen md:h-screen w-full bg-[#050507] overflow-hidden relative"
       >
-        {phases.map((phase, i) => {
+        {/* Mobile layout: stacked phases that scroll naturally */}
+        <div className="md:hidden flex flex-col w-full">
+          {phases.map((phase) => (
+            <div
+              key={phase.word}
+              className="wt-phase-mobile min-h-[40vh] py-16 flex flex-col items-center justify-center text-center px-6"
+            >
+              <h3 className="text-fluid-phase font-extrabold tracking-tight leading-none text-[#E8E8E8]">
+                {phase.word}
+              </h3>
+              <p className="text-[16px] text-[#888888] mt-3 max-w-md">
+                {phase.subtitle}
+              </p>
+              {/* Static colored line on mobile */}
+              <div
+                className="mt-6 h-[2px] w-[40px]"
+                style={{ backgroundColor: phase.lineColor }}
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop layout: absolute positioned phases for pin/scrub */}
+        {phases.map((phase) => {
           const alignClass =
             phase.align === "right"
               ? "items-center md:items-end text-center md:text-right pr-6 sm:pr-12 lg:pr-[120px]"
@@ -163,7 +213,7 @@ export default function SceneWalkthrough() {
           return (
             <div
               key={phase.word}
-              className={`wt-phase absolute inset-0 flex-col justify-center px-8 opacity-0 ${alignClass}`}
+              className={`wt-phase hidden md:flex absolute inset-0 flex-col justify-center px-8 opacity-0 ${alignClass}`}
               style={{ display: "none" }}
             >
               <h3

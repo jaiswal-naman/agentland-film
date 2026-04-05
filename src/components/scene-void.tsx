@@ -17,7 +17,70 @@ export default function SceneVoid() {
       const pinned = pinnedRef.current;
       if (!container || !pinned) return;
 
-      // Pin
+      const isMobile = window.innerWidth < 768;
+
+      if (isMobile) {
+        // Mobile: simple time-based animations, no pin
+        const bigText = pinned.querySelector(".big-text");
+        const subText = pinned.querySelector(".sub-text");
+        const revealGroup = pinned.querySelector(".reveal-group");
+
+        // "AUTOMATION" fades from dark to light when visible
+        gsap.fromTo(
+          bigText,
+          { color: "#1A1A1A", opacity: 1 },
+          {
+            color: "#E8E8E8",
+            duration: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: bigText,
+              start: "top 85%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+
+        // Sub text fades in after a delay
+        gsap.fromTo(
+          subText,
+          { opacity: 0, y: 20 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            delay: 0.5,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: bigText,
+              start: "top 85%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+
+        // Reveal group fades in when scrolled into view
+        gsap.set(revealGroup, { opacity: 0, y: 30, position: "relative", display: "flex" });
+        gsap.fromTo(
+          revealGroup,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: revealGroup,
+              start: "top 85%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+
+        return;
+      }
+
+      // Desktop: existing pin+scrub logic
       const trigger = ScrollTrigger.create({
         trigger: container,
         start: "top top",
@@ -30,7 +93,6 @@ export default function SceneVoid() {
       const subText = pinned.querySelector(".sub-text");
       const revealGroup = pinned.querySelector(".reveal-group");
 
-      // Master timeline
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: container,
@@ -92,10 +154,10 @@ export default function SceneVoid() {
   );
 
   return (
-    <div ref={containerRef} className="relative h-[180vh]">
+    <div ref={containerRef} className="relative min-h-screen md:h-[180vh]">
       <div
         ref={pinnedRef}
-        className="h-screen w-full flex flex-col justify-center bg-[#050507] overflow-hidden"
+        className="min-h-screen md:h-screen w-full flex flex-col justify-center bg-[#050507] overflow-hidden"
       >
         {/* Ambient breathing glow */}
         <div className="absolute inset-0 opacity-[0.03]" style={{
@@ -114,16 +176,16 @@ export default function SceneVoid() {
             AUTOMATION
           </h1>
           <p
-            className="sub-text mt-4 sm:mt-6 text-[18px] sm:text-[22px] md:text-[24px] text-[#888888] opacity-0"
+            className="sub-text mt-4 sm:mt-6 text-[16px] md:text-[22px] lg:text-[24px] text-[#888888] opacity-0"
             style={{ maxWidth: "600px" }}
           >
             is hiding inside your company.
           </p>
         </div>
 
-        {/* Phase 5: Centered reveal */}
-        <div className="reveal-group absolute inset-0 flex items-center justify-center opacity-0">
-          <p className="text-[clamp(32px,5vw,60px)] font-semibold tracking-tight text-[#E8E8E8]">
+        {/* Phase 5: Centered reveal -- on mobile it's positioned below, not absolute */}
+        <div className="reveal-group relative md:absolute md:inset-0 flex items-center justify-center opacity-0 mt-16 md:mt-0">
+          <p className="text-[28px] md:text-[clamp(32px,5vw,60px)] font-semibold tracking-tight text-[#E8E8E8] px-6 text-center">
             AgentLand{" "}
             <span className="text-[#6366F1]">finds</span>{" "}
             it.
