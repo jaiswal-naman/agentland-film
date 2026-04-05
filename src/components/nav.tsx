@@ -28,7 +28,7 @@ export default function Nav() {
       </span>
       <a
         href="#"
-        className="pr-4 sm:pr-8 text-[13px] text-[#888] hover:text-[#E8E8E8] transition-colors duration-200"
+        className="pr-4 sm:pr-8 text-[13px] text-[#888] hover:text-[#E8E8E8] transition-colors duration-200 min-h-[44px] flex items-center cursor-pointer"
       >
         Get Audit &rarr;
       </a>

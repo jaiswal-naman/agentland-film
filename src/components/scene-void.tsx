@@ -125,10 +125,10 @@ export default function SceneVoid() {
       {/* MOBILE LAYOUT -- simple, flowing, no absolute, no vh heights */}
       <div ref={mobileRef} className="md:hidden">
         <section className="flex flex-col justify-start px-5 pt-24 pb-16 bg-[#050507]">
-          <h1 className="animate-in text-[32px] font-extrabold tracking-tighter leading-none text-[#E8E8E8] mb-3">
+          <h1 className="animate-in text-[28px] sm:text-[36px] font-extrabold tracking-[-0.04em] leading-[0.95] text-[#E8E8E8] mb-3">
             AUTOMATION
           </h1>
-          <p className="animate-in text-[15px] text-[#888888] mb-12">
+          <p className="animate-in font-mono text-[11px] tracking-[0.15em] uppercase text-[#666] mb-12">
             is hiding inside your company.
           </p>
           <p className="animate-in text-[20px] font-semibold text-[#E8E8E8] text-center">
@@ -156,13 +156,13 @@ export default function SceneVoid() {
           {/* Phase 1-2: Big text left-aligned */}
           <div className="pl-12 lg:pl-[120px] pr-8">
             <h1
-              className="big-text text-fluid-hero font-extrabold leading-[0.9] tracking-tight"
-              style={{ color: "#1A1A1A" }}
+              className="big-text text-fluid-hero font-extrabold leading-[0.9]"
+              style={{ color: "#1A1A1A", letterSpacing: "-0.05em" }}
             >
               AUTOMATION
             </h1>
             <p
-              className="sub-text mt-6 text-[22px] lg:text-[24px] text-[#888888] opacity-0"
+              className="sub-text text-label mt-6 text-[#888888] opacity-0"
               style={{ maxWidth: "600px" }}
             >
               is hiding inside your company.
@@ -171,7 +171,7 @@ export default function SceneVoid() {
 
           {/* Phase 5: Centered reveal */}
           <div className="reveal-group absolute inset-0 flex items-center justify-center opacity-0">
-            <p className="text-[clamp(32px,5vw,60px)] font-semibold tracking-tight text-[#E8E8E8] px-6 text-center">
+            <p className="text-h1 text-[#E8E8E8] px-6 text-center">
               AgentLand <span className="text-[#6366F1]">finds</span> it.
             </p>
           </div>

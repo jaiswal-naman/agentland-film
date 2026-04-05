@@ -2,14 +2,18 @@
 
 /* ── Design tokens ── */
 @theme inline {
-  --color-base: #050507;
+  --color-base: #020203;
   --color-surface: #0C0C0E;
   --color-text: #E8E8E8;
   --color-text-muted: #555555;
   --color-text-dim: #333333;
   --color-accent: #6366F1;
   --color-border-subtle: #1A1A1A;
-  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-display: "Inter", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* ── Reset ── */
@@ -40,7 +44,7 @@ html {
 body {
   background: var(--color-base);
   color: var(--color-text);
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -135,3 +139,26 @@ body {
 .text-fluid-phase { font-size: clamp(32px, 10vw, 160px); }
 .text-fluid-heading { font-size: clamp(28px, 6vw, 80px); }
 .text-fluid-name { font-size: clamp(32px, 8vw, 120px); }
+
+/* ── Type scale utilities ── */
+.text-hero { font-size: clamp(2.5rem, 8vw, 4.5rem); font-weight: 800; letter-spacing: -0.04em; line-height: 0.95; }
+.text-h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; letter-spacing: -0.03em; }
+.text-h2 { font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 600; letter-spacing: -0.02em; }
+.text-stat { font-family: var(--font-mono); font-size: clamp(3rem, 12vw, 5rem); font-weight: 500; letter-spacing: -0.02em; }
+.text-label { font-family: var(--font-mono); font-size: 0.75rem; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; }
+
+/* ── Touch targets ── */
+.touch-target { min-height: 44px; min-width: 44px; }
+
+/* ── Gradient background ── */
+.bg-gradient-base { background: linear-gradient(180deg, #020203 0%, #050507 100%); }
+
+/* ── prefers-reduced-motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .film-grain { display: none; }
+}

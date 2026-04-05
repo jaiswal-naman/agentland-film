@@ -37,7 +37,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
     <div className="border-b border-[#1A1A1A]">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between py-5 text-left group"
+        className="w-full flex items-center justify-between py-5 text-left group min-h-[44px]"
       >
         <span className="text-[14px] md:text-[16px] font-medium text-[#E8E8E8]">
           {q}
@@ -133,17 +133,17 @@ export default function SceneCredits() {
       {/* Final CTA */}
       <section className="pt-20 sm:pt-40 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 text-center">
         <div className="credit-animate">
-          <h2 className="text-[28px] md:text-fluid-heading font-bold tracking-tight leading-none text-[#E8E8E8]">
+          <h2 className="text-[28px] md:text-fluid-heading font-bold tracking-[-0.04em] leading-none text-[#E8E8E8]">
             Your business.
           </h2>
-          <h2 className="text-[28px] md:text-fluid-heading font-bold tracking-tight leading-none text-[#6366F1] mt-2">
+          <h2 className="text-[28px] md:text-fluid-heading font-bold tracking-[-0.04em] leading-none text-[#6366F1] mt-2">
             Automated.
           </h2>
         </div>
 
         <div className="credit-animate mt-16">
           <button
-            className="w-full md:w-auto py-3 md:py-4 px-10 mx-4 md:mx-0 rounded-lg font-semibold text-[#050507] text-[16px] transition-all duration-300 hover:tracking-[0.05em] hover:-translate-y-0.5 hover:opacity-90"
+            className="w-full md:w-auto py-3 md:py-4 px-10 mx-4 md:mx-0 rounded-lg font-semibold text-[#050507] text-[16px] transition-all duration-300 hover:tracking-[0.05em] hover:-translate-y-0.5 hover:opacity-90 min-h-[44px] cursor-pointer active:scale-[0.98] transition-transform"
             style={{ backgroundColor: "#FFFFFF" }}
           >
             Start &rarr;

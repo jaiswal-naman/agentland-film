@@ -130,14 +130,14 @@ export default function SceneInvitation() {
 
             {/* CTA Button */}
             <button
-              className="w-full py-3 rounded-lg font-semibold text-white text-[16px] transition-all duration-300"
+              className="w-full py-3 rounded-lg font-semibold text-white text-[16px] transition-all duration-300 min-h-[44px] cursor-pointer active:scale-[0.98] transition-transform duration-150"
               style={{ backgroundColor: "#6366F1" }}
             >
               Get Your Free Audit &rarr;
             </button>
 
             {/* Trust signal */}
-            <p className="text-[12px] text-[#555555] mt-4 text-center">
+            <p className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-widest text-[#555555] mt-4 text-center">
               Read-only access &middot; No credit card &middot; Results in 24
               hours
             </p>
@@ -183,14 +183,14 @@ export default function SceneInvitation() {
 
               {/* CTA Button */}
               <button
-                className="w-full py-3 px-8 rounded-lg font-semibold text-white text-[16px] transition-all duration-300 hover:tracking-[0.05em] hover:-translate-y-0.5 hover:opacity-90"
+                className="w-full py-3 px-8 rounded-lg font-semibold text-white text-[16px] transition-all duration-300 hover:tracking-[0.05em] hover:-translate-y-0.5 hover:opacity-90 min-h-[44px] cursor-pointer active:scale-[0.98]"
                 style={{ backgroundColor: "#6366F1" }}
               >
                 Get Your Free Audit &rarr;
               </button>
 
               {/* Trust signal */}
-              <p className="text-[14px] text-[#555555] mt-4">
+              <p className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-widest text-[#555555] mt-4">
                 Read-only access &middot; No credit card &middot; Results in 24
                 hours
               </p>

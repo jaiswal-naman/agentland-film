@@ -133,14 +133,14 @@ export default function SceneGap() {
       <div ref={mobileRef} className="md:hidden">
         <section className="flex flex-col items-center justify-start px-5 pt-24 pb-16 gap-6 bg-[#050507]">
           <div className="text-center animate-in">
-            <span className="text-[56px] font-extrabold text-[#E8E8E8] leading-none">
+            <span className="text-[56px] font-extrabold text-[#E8E8E8] leading-none font-[family-name:var(--font-mono)]">
               79<span className="text-[#888888] text-[24px]">%</span>
             </span>
             <p className="text-[16px] text-[#888888] mt-2">adopting</p>
           </div>
           <div className="animate-in w-12 h-px bg-[#333333]" />
           <div className="text-center animate-in">
-            <span className="text-[72px] font-extrabold leading-none">
+            <span className="text-[72px] font-extrabold leading-none font-[family-name:var(--font-mono)]">
               <span className="gradient-text-accent">11</span>
               <span className="text-[#888888] text-[24px]">%</span>
             </span>
@@ -161,7 +161,7 @@ export default function SceneGap() {
           <div className="flex flex-row items-center justify-between w-full px-12 lg:px-[120px]">
             {/* 79% */}
             <div className="text-center">
-              <div className="left-num text-fluid-stat font-extrabold leading-none tracking-tighter text-[#E8E8E8] opacity-0">
+              <div className="left-num text-fluid-stat font-extrabold leading-none tracking-[-0.04em] text-[#E8E8E8] opacity-0 font-[family-name:var(--font-mono)]">
                 79
                 <span
                   className="text-[#888888]"
@@ -177,7 +177,7 @@ export default function SceneGap() {
 
             {/* 11% */}
             <div className="text-center">
-              <div className="right-num text-fluid-stat font-extrabold leading-none tracking-tighter opacity-0">
+              <div className="right-num text-fluid-stat font-extrabold leading-none tracking-[-0.04em] opacity-0 font-[family-name:var(--font-mono)]">
                 <span className="gradient-text-accent">11</span>
                 <span
                   className="text-[#888888]"
