@@ -104,14 +104,14 @@ export default function SceneInvitation() {
     <div ref={containerRef}>
       {/* MOBILE LAYOUT -- simple, flowing, no absolute, no vh heights */}
       <div ref={mobileRef} className="md:hidden">
-        <section className="min-h-screen flex flex-col items-center justify-center px-4 py-20 bg-[#050507]">
-          <h2 className="animate-in text-[24px] font-medium text-[#E8E8E8] mb-8 text-center">
+        <section className="flex flex-col items-start justify-start px-4 pt-20 pb-12 bg-[#050507]">
+          <h2 className="animate-in text-[20px] font-medium text-[#E8E8E8] mb-6 text-center">
             See what you&apos;re missing.
           </h2>
 
           <div className="animate-in w-full border border-[#1A1A1A] bg-[#0C0C0E] rounded-xl p-5">
             {/* Label */}
-            <p className="text-[14px] uppercase tracking-widest text-[#888888] mb-6">
+            <p className="text-[11px] uppercase tracking-widest text-[#888] mb-4">
               Free Audit
             </p>
 
@@ -122,7 +122,7 @@ export default function SceneInvitation() {
                   key={i}
                   className="flex items-center gap-3 text-[#E8E8E8] text-[14px]"
                 >
-                  <span className="text-[#888888] text-[14px]">&rarr;</span>
+                  <span className="text-[#888888] text-[13px]">&rarr;</span>
                   <span>{step}</span>
                 </div>
               ))}
@@ -164,7 +164,7 @@ export default function SceneInvitation() {
               style={{ maxWidth: "448px", margin: "0 auto" }}
             >
               {/* Label */}
-              <p className="text-[14px] uppercase tracking-widest text-[#888888] mb-6">
+              <p className="text-[11px] uppercase tracking-widest text-[#888] mb-4">
                 Free Audit
               </p>
 
@@ -175,7 +175,7 @@ export default function SceneInvitation() {
                     key={i}
                     className="flex items-center gap-3 text-[#E8E8E8] text-[16px]"
                   >
-                    <span className="text-[#888888] text-[14px]">&rarr;</span>
+                    <span className="text-[#888888] text-[13px]">&rarr;</span>
                     <span>{step}</span>
                   </div>
                 ))}

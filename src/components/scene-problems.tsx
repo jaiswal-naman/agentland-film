@@ -144,13 +144,13 @@ export default function SceneProblems() {
     <div ref={containerRef}>
       {/* MOBILE LAYOUT -- simple, flowing, no absolute, no vh heights */}
       <div ref={mobileRef} className="md:hidden">
-        <section className="px-6 py-16 bg-[#050507]">
+        <section className="px-5 pt-20 pb-12 bg-[#050507]">
           {statements.map((item, i) => (
-            <div key={i} className="py-12 animate-in">
-              <p className="text-[28px] font-bold text-[#E8E8E8] mb-2">
+            <div key={i} className="py-8 animate-in border-b border-[#111]">
+              <p className="text-[22px] font-bold text-[#E8E8E8] mb-1">
                 {item.word}
               </p>
-              <p className="text-[16px] text-[#888888]">{item.sentence}</p>
+              <p className="text-[14px] text-[#888888] leading-relaxed">{item.sentence}</p>
             </div>
           ))}
         </section>

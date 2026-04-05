@@ -191,14 +191,14 @@ export default function SceneWalkthrough() {
     <div ref={containerRef}>
       {/* MOBILE LAYOUT -- simple, flowing, no absolute, no vh heights */}
       <div ref={mobileRef} className="md:hidden">
-        <section className="px-6 py-8 bg-[#050507]">
+        <section className="px-5 pt-20 pb-12 bg-[#050507]">
           {phases.map((phase) => (
             <div
               key={phase.word}
-              className="py-16 text-center animate-in"
+              className="py-10 text-center animate-in border-b border-[#111]"
             >
               <h3
-                className="text-[36px] font-bold tracking-tighter leading-none"
+                className="text-[28px] font-bold tracking-tighter leading-none"
                 style={{ color: phase.lineColor }}
               >
                 {phase.word}
@@ -207,7 +207,7 @@ export default function SceneWalkthrough() {
                 className="w-10 h-0.5 mx-auto mt-4 mb-4"
                 style={{ backgroundColor: phase.lineColor }}
               />
-              <p className="text-[16px] text-[#888888]">{phase.subtitle}</p>
+              <p className="text-[14px] text-[#888888]">{phase.subtitle}</p>
             </div>
           ))}
         </section>

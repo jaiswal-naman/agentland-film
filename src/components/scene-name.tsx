@@ -108,11 +108,11 @@ export default function SceneName() {
     <div ref={containerRef}>
       {/* MOBILE LAYOUT -- simple, flowing, no absolute, no vh heights */}
       <div ref={mobileRef} className="md:hidden">
-        <section className="min-h-[60vh] flex flex-col items-center justify-center px-6 py-20 bg-[#050507]">
-          <h2 className="animate-in text-[36px] font-bold tracking-tighter text-[#E8E8E8]">
+        <section className="flex flex-col items-center justify-center px-5 py-20 bg-[#050507]">
+          <h2 className="animate-in text-[28px] font-bold tracking-tighter text-[#E8E8E8]">
             AgentLand
           </h2>
-          <p className="animate-in text-[12px] text-[#888888] tracking-[0.2em] uppercase mt-6 text-center">
+          <p className="animate-in text-[11px] text-[#666] tracking-[0.15em] uppercase mt-4 text-center">
             CONNECT &middot; DISCOVER &middot; BUILD &middot; DEPLOY &middot;
             MONITOR
           </p>

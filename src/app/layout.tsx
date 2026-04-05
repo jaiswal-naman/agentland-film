@@ -6,12 +6,14 @@ const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
   variable: "--font-display",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "AgentLand — Your Business. Automated.",
   description:
     "Connect your tools. Discover automation opportunities. Deploy AI agents. Monitor everything.",
+  viewport: "width=device-width, initial-scale=1, viewport-fit=cover",
 };
 
 export default function RootLayout({

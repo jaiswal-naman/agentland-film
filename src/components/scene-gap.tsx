@@ -131,10 +131,10 @@ export default function SceneGap() {
     <div ref={containerRef}>
       {/* MOBILE LAYOUT -- simple, flowing, no absolute, no vh heights */}
       <div ref={mobileRef} className="md:hidden">
-        <section className="min-h-screen flex flex-col items-center justify-center px-6 py-20 gap-8 bg-[#050507]">
+        <section className="flex flex-col items-center justify-start px-5 pt-24 pb-16 gap-6 bg-[#050507]">
           <div className="text-center animate-in">
-            <span className="text-[72px] font-extrabold text-[#E8E8E8] leading-none">
-              79<span className="text-[#888888] text-[36px]">%</span>
+            <span className="text-[56px] font-extrabold text-[#E8E8E8] leading-none">
+              79<span className="text-[#888888] text-[24px]">%</span>
             </span>
             <p className="text-[16px] text-[#888888] mt-2">adopting</p>
           </div>
@@ -142,11 +142,11 @@ export default function SceneGap() {
           <div className="text-center animate-in">
             <span className="text-[72px] font-extrabold leading-none">
               <span className="gradient-text-accent">11</span>
-              <span className="text-[#888888] text-[36px]">%</span>
+              <span className="text-[#888888] text-[24px]">%</span>
             </span>
             <p className="text-[16px] text-[#888888] mt-2">running</p>
           </div>
-          <p className="animate-in text-[18px] text-[#555555] mt-8">
+          <p className="animate-in text-[15px] text-[#666] mt-6">
             The rest are stuck.
           </p>
         </section>

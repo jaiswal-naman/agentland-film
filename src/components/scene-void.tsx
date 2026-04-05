@@ -124,14 +124,14 @@ export default function SceneVoid() {
     <div ref={containerRef}>
       {/* MOBILE LAYOUT -- simple, flowing, no absolute, no vh heights */}
       <div ref={mobileRef} className="md:hidden">
-        <section className="min-h-screen flex flex-col justify-center px-6 py-20 bg-[#050507]">
-          <h1 className="animate-in text-[40px] font-extrabold tracking-tighter leading-none text-[#E8E8E8] mb-4">
+        <section className="flex flex-col justify-start px-5 pt-24 pb-16 bg-[#050507]">
+          <h1 className="animate-in text-[32px] font-extrabold tracking-tighter leading-none text-[#E8E8E8] mb-3">
             AUTOMATION
           </h1>
-          <p className="animate-in text-[16px] text-[#888888] mb-16">
+          <p className="animate-in text-[15px] text-[#888888] mb-12">
             is hiding inside your company.
           </p>
-          <p className="animate-in text-[24px] font-semibold text-[#E8E8E8] text-center">
+          <p className="animate-in text-[20px] font-semibold text-[#E8E8E8] text-center">
             AgentLand <span className="text-[#6366F1]">finds</span> it.
           </p>
         </section>
