@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { NumberTicker } from "@/components/ui/number-ticker";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -216,7 +217,7 @@ export default function SceneGap() {
             {/* 79% */}
             <div className="left-num absolute opacity-0">
               <span className="text-[80px] sm:text-[120px] md:text-[160px] lg:text-[200px] font-bold text-text leading-none tracking-tighter">
-                79%
+                <NumberTicker value={79} className="text-[80px] sm:text-[120px] md:text-[160px] lg:text-[200px] font-bold text-text leading-none tracking-tighter" />%
               </span>
               <div className="left-label opacity-0 text-center mt-2">
                 <span className="text-base sm:text-lg text-text-muted">
@@ -294,7 +295,16 @@ export default function SceneGap() {
                   WebkitTextFillColor: "transparent",
                 }}
               >
-                11%
+                <NumberTicker
+                  value={11}
+                  className="text-[80px] sm:text-[120px] md:text-[160px] lg:text-[200px] font-bold leading-none tracking-tighter"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, #6366F1, #818CF8, #A78BFA)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                  }}
+                />%
               </span>
               <div className="right-label opacity-0 text-center mt-2">
                 <span className="text-base sm:text-lg text-text-muted">

@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { DotPattern } from "@/components/ui/dot-pattern";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -137,6 +138,9 @@ export default function SceneVoid() {
         ref={pinnedRef}
         className="h-screen w-full flex items-center justify-center bg-base overflow-hidden"
       >
+        {/* Dot pattern background */}
+        <DotPattern className="opacity-[0.03] text-[#6366F1]" />
+
         {/* Floating gradient orbs */}
         <div
           className="floating-orb absolute opacity-0"

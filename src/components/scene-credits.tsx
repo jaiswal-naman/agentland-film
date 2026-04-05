@@ -4,6 +4,8 @@ import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Meteors } from "@/components/ui/meteors";
+import { ShimmerButton } from "@/components/ui/shimmer-button";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -173,6 +175,9 @@ export default function SceneCredits() {
 
       {/* Final CTA */}
       <section className="relative py-24 sm:py-32 px-6 sm:px-8 border-t border-white/5 overflow-hidden">
+        {/* Meteor streaks */}
+        <Meteors number={15} />
+
         {/* Animated gradient blobs */}
         <div
           className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full opacity-[0.07] blur-[120px] pointer-events-none"
@@ -206,26 +211,30 @@ export default function SceneCredits() {
             Automated.
           </h2>
           <div className="credit-animate">
-            <a
-              href="#audit"
-              className="inline-flex items-center gap-2 px-10 py-5 bg-white text-base font-semibold rounded-full transition-all duration-300 hover:bg-white/90 hover:shadow-[0_0_60px_rgba(255,255,255,0.15)]"
-              style={{ color: "#09090B" }}
+            <ShimmerButton
+              className="mx-auto px-10 py-5 text-base font-semibold"
+              shimmerColor="#ffffff"
+              background="rgba(255, 255, 255, 1)"
+              borderRadius="9999px"
+              shimmerSize="0.05em"
             >
-              Start Your Free Audit
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
-              </svg>
-            </a>
+              <span className="flex items-center gap-2" style={{ color: "#09090B" }}>
+                Start Your Free Audit
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+              </span>
+            </ShimmerButton>
           </div>
         </div>
       </section>

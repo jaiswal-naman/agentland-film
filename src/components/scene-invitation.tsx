@@ -4,6 +4,8 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { BorderBeam } from "@/components/ui/border-beam";
+import { ShimmerButton } from "@/components/ui/shimmer-button";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -164,12 +166,13 @@ export default function SceneInvitation() {
             <div className="glow-backdrop" />
 
             <div
-              className="inv-card glass-card glass-card-glow p-6 sm:p-8 opacity-0"
+              className="inv-card glass-card glass-card-glow p-6 sm:p-8 opacity-0 relative"
               style={{
                 transform:
                   "perspective(1000px) rotateY(-2deg) rotateX(2deg)",
               }}
             >
+              <BorderBeam size={80} duration={6} colorFrom="#6366F1" colorTo="#A78BFA" />
               <div className="text-left mb-6">
                 <div className="text-xs uppercase tracking-widest text-accent mb-2">
                   Sample Audit Preview
@@ -228,25 +231,29 @@ export default function SceneInvitation() {
 
           {/* CTA */}
           <div className="inv-cta mt-8 sm:mt-10 opacity-0">
-            <a
-              href="#audit"
-              className="inv-cta-btn inline-flex items-center gap-2 px-8 py-4 bg-accent text-white font-semibold text-base sm:text-lg rounded-full transition-all duration-300 hover:bg-accent-light hover:shadow-[0_0_40px_rgba(99,102,241,0.3)]"
+            <ShimmerButton
+              className="inv-cta-btn mx-auto px-8 py-4 text-base sm:text-lg font-semibold"
+              shimmerColor="#818CF8"
+              background="rgba(99, 102, 241, 0.15)"
+              borderRadius="9999px"
             >
-              Get Your Free Audit
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
-              </svg>
-            </a>
+              <span className="flex items-center gap-2 text-white">
+                Get Your Free Audit
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+              </span>
+            </ShimmerButton>
           </div>
         </div>
       </div>
