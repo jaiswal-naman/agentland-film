@@ -77,7 +77,7 @@ export default function SceneProblems() {
   );
 
   return (
-    <div ref={containerRef} className="relative h-[250vh]">
+    <div ref={containerRef} className="relative h-[160vh]">
       <div
         ref={pinnedRef}
         className="h-screen w-full bg-[#050507] overflow-hidden flex items-center"

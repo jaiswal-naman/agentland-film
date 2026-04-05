@@ -74,7 +74,7 @@ export default function SceneName() {
   );
 
   return (
-    <div ref={containerRef} className="relative h-[200vh]">
+    <div ref={containerRef} className="relative h-[140vh]">
       <div
         ref={pinnedRef}
         className="h-screen w-full bg-[#050507] overflow-hidden flex flex-col items-center justify-center"
@@ -95,7 +95,7 @@ export default function SceneName() {
         <div className="mt-8 flex items-center gap-4 flex-wrap justify-center">
           {words.map((word, i) => (
             <span key={i} className="flex items-center gap-4">
-              <span className="sub-word text-[20px] text-[#555555] tracking-[0.3em] uppercase opacity-0">
+              <span className="sub-word text-[24px] text-[#888888] tracking-[0.3em] uppercase opacity-0">
                 {word}
               </span>
               {i < words.length - 1 && (

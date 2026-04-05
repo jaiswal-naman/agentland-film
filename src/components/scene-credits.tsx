@@ -41,7 +41,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
       >
         <span className="text-[16px] font-medium text-[#E8E8E8]">{q}</span>
         <svg
-          className={`w-5 h-5 text-[#555555] transition-transform duration-300 flex-shrink-0 ml-4 ${open ? "rotate-45" : ""}`}
+          className={`w-5 h-5 text-[#888888] transition-transform duration-300 flex-shrink-0 ml-4 ${open ? "rotate-45" : ""}`}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -58,7 +58,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
         className="overflow-hidden transition-all duration-300"
         style={{ maxHeight: open ? "200px" : "0px", opacity: open ? 1 : 0 }}
       >
-        <p className="pb-5 text-[14px] text-[#555555] leading-relaxed">
+        <p className="pb-5 text-[18px] text-[#888888] leading-relaxed">
           {a}
         </p>
       </div>
@@ -114,7 +114,7 @@ export default function SceneCredits() {
             The bottleneck was never intelligence. It was the missing layer.
           </blockquote>
 
-          <div className="text-[14px] text-[#555555]">Naman Jaiswal</div>
+          <div className="text-[18px] text-[#888888]">Naman Jaiswal</div>
           <div className="text-[12px] text-[#333333] mt-1">
             NIT Rourkela &middot; YC Startup School &apos;26
           </div>

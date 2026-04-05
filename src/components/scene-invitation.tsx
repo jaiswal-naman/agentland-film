@@ -70,7 +70,7 @@ export default function SceneInvitation() {
   );
 
   return (
-    <div ref={containerRef} className="relative h-[200vh]">
+    <div ref={containerRef} className="relative h-[140vh]">
       <div
         ref={pinnedRef}
         className="h-screen w-full bg-[#050507] overflow-hidden flex items-center justify-center"
@@ -87,7 +87,7 @@ export default function SceneInvitation() {
             style={{ maxWidth: "448px", margin: "0 auto" }}
           >
             {/* Label */}
-            <p className="text-[14px] uppercase tracking-widest text-[#555555] mb-6">
+            <p className="text-[14px] uppercase tracking-widest text-[#888888] mb-6">
               Free Audit
             </p>
 
@@ -98,7 +98,7 @@ export default function SceneInvitation() {
                   key={i}
                   className="flex items-center gap-3 text-[#E8E8E8] text-[16px]"
                 >
-                  <span className="text-[#555555] text-[14px]">&rarr;</span>
+                  <span className="text-[#888888] text-[14px]">&rarr;</span>
                   <span>{step}</span>
                 </div>
               ))}

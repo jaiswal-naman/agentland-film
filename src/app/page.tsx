@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+import LenisProvider from "@/components/lenis-provider";
 import SceneVoid from "@/components/scene-void";
 import SceneGap from "@/components/scene-gap";
 import SceneProblems from "@/components/scene-problems";
@@ -16,19 +17,20 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
   useEffect(() => {
-    // Refresh ScrollTrigger after all scenes mount
     ScrollTrigger.refresh();
   }, []);
 
   return (
-    <main>
-      <SceneVoid />
-      <SceneGap />
-      <SceneProblems />
-      <SceneName />
-      <SceneWalkthrough />
-      <SceneInvitation />
-      <SceneCredits />
-    </main>
+    <LenisProvider>
+      <main>
+        <SceneVoid />
+        <SceneGap />
+        <SceneProblems />
+        <SceneName />
+        <SceneWalkthrough />
+        <SceneInvitation />
+        <SceneCredits />
+      </main>
+    </LenisProvider>
   );
 }

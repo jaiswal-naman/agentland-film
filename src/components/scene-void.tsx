@@ -92,7 +92,7 @@ export default function SceneVoid() {
   );
 
   return (
-    <div ref={containerRef} className="relative h-[300vh]">
+    <div ref={containerRef} className="relative h-[180vh]">
       <div
         ref={pinnedRef}
         className="h-screen w-full flex flex-col justify-center bg-[#050507] overflow-hidden"
@@ -109,7 +109,7 @@ export default function SceneVoid() {
             AUTOMATION
           </h1>
           <p
-            className="sub-text mt-6 text-[20px] text-[#555555] opacity-0"
+            className="sub-text mt-6 text-[24px] text-[#888888] opacity-0"
             style={{ maxWidth: "600px" }}
           >
             is hiding inside your company.

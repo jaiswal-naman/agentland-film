@@ -97,7 +97,7 @@ export default function SceneGap() {
   );
 
   return (
-    <div ref={containerRef} className="relative h-[250vh]">
+    <div ref={containerRef} className="relative h-[160vh]">
       <div
         ref={pinnedRef}
         className="h-screen w-full bg-[#050507] overflow-hidden relative flex items-center"
@@ -110,13 +110,13 @@ export default function SceneGap() {
           >
             79
             <span
-              className="text-[#555555]"
+              className="text-[#888888]"
               style={{ fontSize: "clamp(40px, 6vw, 80px)" }}
             >
               %
             </span>
           </div>
-          <p className="left-label text-[16px] text-[#555555] mt-2 opacity-0">
+          <p className="left-label text-[20px] text-[#888888] mt-2 opacity-0">
             adopting
           </p>
         </div>
@@ -129,19 +129,19 @@ export default function SceneGap() {
           >
             11
             <span
-              className="text-[#555555]"
+              className="text-[#888888]"
               style={{ fontSize: "clamp(40px, 6vw, 80px)" }}
             >
               %
             </span>
           </div>
-          <p className="right-label text-[16px] text-[#555555] mt-2 opacity-0">
+          <p className="right-label text-[20px] text-[#888888] mt-2 opacity-0">
             running
           </p>
         </div>
 
         {/* Bottom: verdict */}
-        <p className="bottom-text absolute bottom-[15%] left-1/2 -translate-x-1/2 text-[16px] text-[#555555] opacity-0 whitespace-nowrap">
+        <p className="bottom-text absolute bottom-[15%] left-1/2 -translate-x-1/2 text-[20px] text-[#888888] opacity-0 whitespace-nowrap">
           The rest are stuck.
         </p>
       </div>

@@ -143,7 +143,7 @@ export default function SceneWalkthrough() {
   );
 
   return (
-    <div ref={containerRef} className="relative h-[400vh]">
+    <div ref={containerRef} className="relative h-[260vh]">
       <div
         ref={pinnedRef}
         className="h-screen w-full bg-[#050507] overflow-hidden relative"
@@ -168,7 +168,7 @@ export default function SceneWalkthrough() {
               >
                 {phase.word}
               </h3>
-              <p className="wt-subtitle text-[20px] text-[#555555] mt-4 opacity-0 max-w-md">
+              <p className="wt-subtitle text-[24px] text-[#888888] mt-4 opacity-0 max-w-md">
                 {phase.subtitle}
               </p>
               <div
