@@ -100,11 +100,14 @@ export default function SceneCredits() {
   return (
     <div ref={sectionRef} className="relative bg-[#050507]">
       {/* Founder quote */}
-      <section className="pt-32 pb-24 px-6">
+      <section className="pt-40 pb-24 px-6">
+        {/* Horizontal rule above founder section */}
+        <div className="w-16 h-px bg-[#1A1A1A] ml-[120px] mb-16" />
+
         <div className="credit-animate max-w-xl pl-[120px]">
           {/* Decorative quote mark */}
           <div
-            className="text-[80px] leading-none font-serif select-none -mb-10"
+            className="text-[120px] leading-none font-serif select-none -mb-14"
             style={{ color: "#1A1A1A" }}
           >
             &ldquo;
@@ -124,17 +127,17 @@ export default function SceneCredits() {
       {/* Final CTA */}
       <section className="pt-40 pb-16 px-6 text-center">
         <div className="credit-animate">
-          <h2 className="text-[clamp(48px,8vw,80px)] font-bold tracking-tight leading-none text-[#E8E8E8]">
+          <h2 className="text-fluid-heading font-bold tracking-tight leading-none text-[#E8E8E8]">
             Your business.
           </h2>
-          <h2 className="text-[clamp(48px,8vw,80px)] font-bold tracking-tight leading-none text-[#6366F1] mt-2">
+          <h2 className="text-fluid-heading font-bold tracking-tight leading-none text-[#6366F1] mt-2">
             Automated.
           </h2>
         </div>
 
         <div className="credit-animate mt-16">
           <button
-            className="py-4 px-10 rounded-lg font-semibold text-[#050507] text-[16px] transition-opacity hover:opacity-90"
+            className="py-4 px-10 rounded-lg font-semibold text-[#050507] text-[16px] transition-all duration-300 hover:tracking-[0.05em] hover:-translate-y-0.5 hover:opacity-90"
             style={{ backgroundColor: "#FFFFFF" }}
           >
             Start &rarr;
@@ -159,6 +162,11 @@ export default function SceneCredits() {
           &copy; 2026 AgentLand &middot; YC Startup School &apos;26
         </p>
       </footer>
+
+      {/* Designer's signature */}
+      <div className="py-8 text-center">
+        <span className="text-[13px] text-[#1A1A1A]">AgentLand</span>
+      </div>
     </div>
   );
 }

@@ -13,24 +13,28 @@ const phases = [
     subtitle: "Your systems. Ten minutes.",
     align: "right" as const,
     lineDir: "rtl" as const,
+    lineColor: "#22D3EE",
   },
   {
     word: "Discover",
     subtitle: "AI reads your workflows. Finds what\u2019s worth automating.",
     align: "left" as const,
     lineDir: "ltr" as const,
+    lineColor: "#8B5CF6",
   },
   {
     word: "Deploy",
     subtitle: "One click. It\u2019s live.",
     align: "center" as const,
     lineDir: "center" as const,
+    lineColor: "#10B981",
   },
   {
     word: "Monitor",
     subtitle: "Every agent. Every execution.",
     align: "right" as const,
     lineDir: "rtl" as const,
+    lineColor: "#F59E0B",
   },
 ];
 
@@ -127,7 +131,7 @@ export default function SceneWalkthrough() {
         // Fade out
         tl.to(
           phaseEl,
-          { opacity: 0, duration: perPhase * 0.15, ease: "power2.in" },
+          { opacity: 0, duration: perPhase * 0.15, ease: "power2.inOut" },
           start + perPhase * 0.75
         );
 
@@ -163,8 +167,7 @@ export default function SceneWalkthrough() {
               style={{ display: "none" }}
             >
               <h3
-                className="wt-title font-extrabold tracking-tight leading-none text-[#E8E8E8] opacity-0"
-                style={{ fontSize: "clamp(80px, 12vw, 160px)" }}
+                className="wt-title text-fluid-phase font-extrabold tracking-tight leading-none text-[#E8E8E8] opacity-0"
               >
                 {phase.word}
               </h3>
@@ -172,10 +175,11 @@ export default function SceneWalkthrough() {
                 {phase.subtitle}
               </p>
               <div
-                className="wt-line mt-8 h-[1px] bg-[#1A1A1A]"
+                className="wt-line mt-8 h-[1px]"
                 style={{
                   width: "min(400px, 60vw)",
                   transform: "scaleX(0)",
+                  backgroundColor: phase.lineColor,
                 }}
               />
             </div>

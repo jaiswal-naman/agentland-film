@@ -8,10 +8,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const statements = [
-  "They don\u2019t know what to automate.",
-  "They build connectors, not agents.",
-  "They hire teams that don\u2019t exist.",
-  "They buy tools that don\u2019t talk.",
+  { word: "Lost.", sentence: "They don\u2019t know what to automate." },
+  { word: "Wasted.", sentence: "80% of time building connectors, not agents." },
+  { word: "Empty.", sentence: "The AI talent they need doesn\u2019t exist." },
+  { word: "Drowning.", sentence: "Tools that don\u2019t talk to each other." },
 ];
 
 export default function SceneProblems() {
@@ -32,7 +32,7 @@ export default function SceneProblems() {
         pinSpacing: false,
       });
 
-      const lines = pinned.querySelectorAll(".problem-line");
+      const groups = pinned.querySelectorAll(".problem-group");
       const segmentDuration = 1 / statements.length;
 
       const tl = gsap.timeline({
@@ -44,28 +44,38 @@ export default function SceneProblems() {
         },
       });
 
-      lines.forEach((line, i) => {
+      groups.forEach((group, i) => {
         const start = i * segmentDuration;
-        const fadeIn = segmentDuration * 0.25;
-        const hold = segmentDuration * 0.4;
-        const fadeOut = segmentDuration * 0.25;
+        const wordEl = group.querySelector(".problem-word");
+        const sentenceEl = group.querySelector(".problem-sentence");
 
-        // Fade in
+        // Word fades in
         tl.fromTo(
-          line,
+          wordEl,
           { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: fadeIn, ease: "power2.out" },
+          { opacity: 1, y: 0, duration: segmentDuration * 0.15, ease: "power2.out" },
           start
         );
 
-        // Hold
-        tl.to({}, { duration: hold }, start + fadeIn);
+        // Word holds briefly
+        tl.to({}, { duration: segmentDuration * 0.1 }, start + segmentDuration * 0.15);
 
-        // Fade out
+        // Sentence fades in below word
+        tl.fromTo(
+          sentenceEl,
+          { opacity: 0, y: 15 },
+          { opacity: 1, y: 0, duration: segmentDuration * 0.15, ease: "power2.out" },
+          start + segmentDuration * 0.25
+        );
+
+        // Hold both
+        tl.to({}, { duration: segmentDuration * 0.3 }, start + segmentDuration * 0.4);
+
+        // Both fade out
         tl.to(
-          line,
-          { opacity: 0, y: -20, duration: fadeOut, ease: "power2.in" },
-          start + fadeIn + hold
+          [wordEl, sentenceEl],
+          { opacity: 0, y: -20, duration: segmentDuration * 0.2, ease: "power2.inOut" },
+          start + segmentDuration * 0.7
         );
       });
 
@@ -77,20 +87,25 @@ export default function SceneProblems() {
   );
 
   return (
-    <div ref={containerRef} className="relative h-[160vh]">
+    <div ref={containerRef} className="relative h-[200vh]">
       <div
         ref={pinnedRef}
         className="h-screen w-full bg-[#050507] overflow-hidden flex items-center"
       >
         <div className="pl-[120px] pr-8 relative w-full">
-          {statements.map((text, i) => (
-            <p
+          {statements.map((item, i) => (
+            <div
               key={i}
-              className="problem-line absolute text-[clamp(28px,4vw,48px)] font-semibold text-[#E8E8E8] leading-tight opacity-0"
+              className="problem-group absolute"
               style={{ maxWidth: "640px" }}
             >
-              {text}
-            </p>
+              <p className="problem-word text-[clamp(40px,7vw,60px)] font-bold text-[#E8E8E8] leading-tight opacity-0">
+                {item.word}
+              </p>
+              <p className="problem-sentence text-[clamp(20px,3vw,28px)] text-[#888] mt-3 leading-relaxed opacity-0">
+                {item.sentence}
+              </p>
+            </div>
           ))}
         </div>
       </div>

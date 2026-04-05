@@ -59,11 +59,11 @@ export default function SceneVoid() {
       // Phase 3: Hold (0.35 -> 0.5)
       tl.to({}, { duration: 0.15 });
 
-      // Phase 4: All text fades out (0.5 -> 0.6)
+      // Phase 4: All text fades out (0.5 -> 0.65)
       tl.to([bigText, subText], {
         opacity: 0,
-        duration: 0.1,
-        ease: "power2.in",
+        duration: 0.15,
+        ease: "power2.inOut",
       });
 
       // Phase 5: Reveal text fades in (0.6 -> 0.8)
@@ -80,8 +80,8 @@ export default function SceneVoid() {
       // Phase 7: Dissolve (0.9 -> 1.0)
       tl.to(revealGroup, {
         opacity: 0,
-        duration: 0.1,
-        ease: "power2.in",
+        duration: 0.15,
+        ease: "power2.inOut",
       });
 
       return () => {
@@ -97,12 +97,17 @@ export default function SceneVoid() {
         ref={pinnedRef}
         className="h-screen w-full flex flex-col justify-center bg-[#050507] overflow-hidden"
       >
+        {/* Ambient breathing glow */}
+        <div className="absolute inset-0 opacity-[0.03]" style={{
+          background: "radial-gradient(ellipse at 30% 50%, #6366F120 0%, transparent 70%)",
+          animation: "breathe 12s ease-in-out infinite"
+        }} />
+
         {/* Phase 1-2: Big text left-aligned */}
         <div className="pl-[120px] pr-8">
           <h1
-            className="big-text font-extrabold leading-[0.9] tracking-tight"
+            className="big-text text-fluid-hero font-extrabold leading-[0.9] tracking-tight"
             style={{
-              fontSize: "clamp(80px, 14vw, 200px)",
               color: "#1A1A1A",
             }}
           >

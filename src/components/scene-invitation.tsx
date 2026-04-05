@@ -106,11 +106,14 @@ export default function SceneInvitation() {
 
             {/* CTA Button */}
             <button
-              className="w-full py-3 px-8 rounded-lg font-semibold text-white text-[16px] transition-opacity hover:opacity-90"
+              className="w-full py-3 px-8 rounded-lg font-semibold text-white text-[16px] transition-all duration-300 hover:tracking-[0.05em] hover:-translate-y-0.5 hover:opacity-90"
               style={{ backgroundColor: "#6366F1" }}
             >
               Get Your Free Audit &rarr;
             </button>
+
+            {/* Trust signal */}
+            <p className="text-[14px] text-[#555] mt-4">Read-only access &middot; No credit card &middot; Results in 24 hours</p>
           </div>
         </div>
       </div>

@@ -63,7 +63,7 @@ export default function SceneName() {
       tl.to([...Array.from(chars), ...Array.from(wordEls)], {
         opacity: 0,
         duration: 0.15,
-        ease: "power2.in",
+        ease: "power2.inOut",
       });
 
       return () => {
@@ -81,8 +81,7 @@ export default function SceneName() {
       >
         {/* Name */}
         <h2
-          className="font-extrabold tracking-tight leading-none"
-          style={{ fontSize: "clamp(60px, 10vw, 120px)" }}
+          className="text-fluid-name font-extrabold tracking-tight leading-none"
         >
           {name.split("").map((char, i) => (
             <span key={i} className="name-char inline-block opacity-0 text-[#E8E8E8]">

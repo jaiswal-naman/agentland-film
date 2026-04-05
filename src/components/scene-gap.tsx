@@ -86,7 +86,7 @@ export default function SceneGap() {
       tl.to([leftNum, leftLabel, rightNum, rightLabel, bottomText], {
         opacity: 0,
         duration: 0.15,
-        ease: "power2.in",
+        ease: "power2.inOut",
       });
 
       return () => {
@@ -105,8 +105,7 @@ export default function SceneGap() {
         {/* Left: 79% */}
         <div className="absolute left-[60px] md:left-[120px] top-1/2 -translate-y-1/2">
           <div
-            className="left-num font-extrabold leading-none tracking-tighter text-[#E8E8E8] opacity-0"
-            style={{ fontSize: "clamp(120px, 22vw, 300px)" }}
+            className="left-num text-fluid-stat font-extrabold leading-none tracking-tighter text-[#E8E8E8] opacity-0"
           >
             79
             <span
@@ -124,8 +123,7 @@ export default function SceneGap() {
         {/* Right: 11% */}
         <div className="absolute right-[60px] md:right-[120px] top-1/2 -translate-y-1/2 text-right">
           <div
-            className="right-num font-extrabold leading-none tracking-tighter text-[#E8E8E8] opacity-0"
-            style={{ fontSize: "clamp(120px, 22vw, 300px)" }}
+            className="right-num text-fluid-stat font-extrabold leading-none tracking-tighter text-[#E8E8E8] opacity-0"
           >
             11
             <span
