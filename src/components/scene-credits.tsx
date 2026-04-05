@@ -58,7 +58,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
         className="overflow-hidden transition-all duration-300"
         style={{ maxHeight: open ? "200px" : "0px", opacity: open ? 1 : 0 }}
       >
-        <p className="pb-5 text-[18px] text-[#888888] leading-relaxed">
+        <p className="pb-5 text-[15px] sm:text-[18px] text-[#888888] leading-relaxed">
           {a}
         </p>
       </div>
@@ -100,20 +100,20 @@ export default function SceneCredits() {
   return (
     <div ref={sectionRef} className="relative bg-[#050507]">
       {/* Founder quote */}
-      <section className="pt-40 pb-24 px-6">
+      <section className="pt-20 sm:pt-40 pb-12 sm:pb-24 px-4 sm:px-6 lg:px-8">
         {/* Horizontal rule above founder section */}
-        <div className="w-16 h-px bg-[#1A1A1A] ml-[120px] mb-16" />
+        <div className="w-16 h-px bg-[#1A1A1A] ml-6 sm:ml-12 lg:ml-[120px] mb-16" />
 
-        <div className="credit-animate max-w-xl pl-[120px]">
+        <div className="credit-animate max-w-xl pl-6 sm:pl-12 lg:pl-[120px]">
           {/* Decorative quote mark */}
           <div
-            className="text-[120px] leading-none font-serif select-none -mb-14"
+            className="text-[80px] sm:text-[120px] leading-none font-serif select-none -mb-10 sm:-mb-14"
             style={{ color: "#1A1A1A" }}
           >
             &ldquo;
           </div>
 
-          <blockquote className="text-[24px] italic text-[#E8E8E8] leading-relaxed tracking-tight mb-6">
+          <blockquote className="text-[18px] sm:text-[22px] md:text-[24px] italic text-[#E8E8E8] leading-relaxed tracking-tight mb-6">
             The bottleneck was never intelligence. It was the missing layer.
           </blockquote>
 
@@ -125,7 +125,7 @@ export default function SceneCredits() {
       </section>
 
       {/* Final CTA */}
-      <section className="pt-40 pb-16 px-6 text-center">
+      <section className="pt-20 sm:pt-40 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 text-center">
         <div className="credit-animate">
           <h2 className="text-fluid-heading font-bold tracking-tight leading-none text-[#E8E8E8]">
             Your business.
@@ -146,7 +146,7 @@ export default function SceneCredits() {
       </section>
 
       {/* FAQ */}
-      <section className="py-32 px-6">
+      <section className="py-16 sm:py-32 px-4 sm:px-6 lg:px-8">
         <div className="max-w-lg mx-auto">
           <div className="credit-animate">
             {faqs.map((faq, i) => (
@@ -157,7 +157,7 @@ export default function SceneCredits() {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 px-6 text-center">
+      <footer className="py-8 px-4 sm:px-6 lg:px-8 text-center">
         <p className="text-[12px] text-[#333333]">
           &copy; 2026 AgentLand &middot; YC Startup School &apos;26
         </p>

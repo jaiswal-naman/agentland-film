@@ -19,16 +19,21 @@
   box-sizing: border-box;
 }
 
-/* ── Custom cursor ── */
-*, *::before, *::after {
-  cursor: none;
+/* ── Custom cursor (desktop only) ── */
+@media (pointer: fine) {
+  *, *::before, *::after {
+    cursor: none;
+  }
 }
 
 html {
   background: var(--color-base);
   color: var(--color-text);
   scroll-behavior: smooth;
-  cursor: none;
+}
+
+@media (pointer: fine) {
+  html { cursor: none; }
 }
 
 body {
@@ -38,7 +43,10 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  cursor: none;
+}
+
+@media (pointer: fine) {
+  body { cursor: none; }
 }
 
 /* ── Film grain overlay ── */

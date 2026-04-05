@@ -102,44 +102,47 @@ export default function SceneGap() {
         ref={pinnedRef}
         className="h-screen w-full bg-[#050507] overflow-hidden relative flex items-center"
       >
-        {/* Left: 79% */}
-        <div className="absolute left-[60px] md:left-[120px] top-1/2 -translate-y-1/2">
-          <div
-            className="left-num text-fluid-stat font-extrabold leading-none tracking-tighter text-[#E8E8E8] opacity-0"
-          >
-            79
-            <span
-              className="text-[#888888]"
-              style={{ fontSize: "clamp(40px, 6vw, 80px)" }}
+        {/* Stats container -- stacks vertically on mobile, side-by-side on md+ */}
+        <div className="flex flex-col md:flex-row items-center justify-center md:justify-between w-full px-6 sm:px-12 md:px-[120px] gap-8 md:gap-0">
+          {/* Left: 79% */}
+          <div className="text-center md:text-left">
+            <div
+              className="left-num text-fluid-stat font-extrabold leading-none tracking-tighter text-[#E8E8E8] opacity-0"
             >
-              %
-            </span>
+              79
+              <span
+                className="text-[#888888]"
+                style={{ fontSize: "clamp(40px, 6vw, 80px)" }}
+              >
+                %
+              </span>
+            </div>
+            <p className="left-label text-[16px] sm:text-[20px] text-[#888888] mt-2 opacity-0">
+              adopting
+            </p>
           </div>
-          <p className="left-label text-[20px] text-[#888888] mt-2 opacity-0">
-            adopting
-          </p>
-        </div>
 
-        {/* Right: 11% */}
-        <div className="absolute right-[60px] md:right-[120px] top-1/2 -translate-y-1/2 text-right">
-          <div
-            className="right-num text-fluid-stat font-extrabold leading-none tracking-tighter text-[#E8E8E8] opacity-0"
-          >
-            11
-            <span
-              className="text-[#888888]"
-              style={{ fontSize: "clamp(40px, 6vw, 80px)" }}
+          {/* Right: 11% */}
+          <div className="text-center md:text-right">
+            <div
+              className="right-num text-fluid-stat font-extrabold leading-none tracking-tighter text-[#E8E8E8] opacity-0"
             >
-              %
-            </span>
+              11
+              <span
+                className="text-[#888888]"
+                style={{ fontSize: "clamp(40px, 6vw, 80px)" }}
+              >
+                %
+              </span>
+            </div>
+            <p className="right-label text-[16px] sm:text-[20px] text-[#888888] mt-2 opacity-0">
+              running
+            </p>
           </div>
-          <p className="right-label text-[20px] text-[#888888] mt-2 opacity-0">
-            running
-          </p>
         </div>
 
         {/* Bottom: verdict */}
-        <p className="bottom-text absolute bottom-[15%] left-1/2 -translate-x-1/2 text-[20px] text-[#888888] opacity-0 whitespace-nowrap">
+        <p className="bottom-text absolute bottom-[15%] left-1/2 -translate-x-1/2 text-[16px] sm:text-[20px] text-[#888888] opacity-0 whitespace-nowrap">
           The rest are stuck.
         </p>
       </div>

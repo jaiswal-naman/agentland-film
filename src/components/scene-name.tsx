@@ -91,10 +91,10 @@ export default function SceneName() {
         </h2>
 
         {/* Sub-words */}
-        <div className="mt-8 flex items-center gap-4 flex-wrap justify-center">
+        <div className="mt-4 sm:mt-8 flex items-center gap-2 sm:gap-4 flex-wrap justify-center px-4">
           {words.map((word, i) => (
-            <span key={i} className="flex items-center gap-4">
-              <span className="sub-word text-[24px] text-[#888888] tracking-[0.3em] uppercase opacity-0">
+            <span key={i} className="flex items-center gap-2 sm:gap-4">
+              <span className="sub-word text-[14px] sm:text-[18px] md:text-[24px] text-[#888888] tracking-[0.15em] sm:tracking-[0.3em] uppercase opacity-0">
                 {word}
               </span>
               {i < words.length - 1 && (

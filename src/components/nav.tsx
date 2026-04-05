@@ -23,12 +23,12 @@ export default function Nav() {
         pointerEvents: visible ? "auto" : "none",
       }}
     >
-      <span className="pl-8 text-[14px] font-bold text-[#E8E8E8] tracking-tight">
+      <span className="pl-4 sm:pl-8 text-[14px] font-bold text-[#E8E8E8] tracking-tight">
         AgentLand
       </span>
       <a
         href="#"
-        className="pr-8 text-[13px] text-[#888] hover:text-[#E8E8E8] transition-colors duration-200"
+        className="pr-4 sm:pr-8 text-[13px] text-[#888] hover:text-[#E8E8E8] transition-colors duration-200"
       >
         Get Audit &rarr;
       </a>

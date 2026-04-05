@@ -1,13 +1,19 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
   const pos = useRef({ x: -100, y: -100 });
   const target = useRef({ x: -100, y: -100 });
+  const [isMouse, setIsMouse] = useState(false);
 
   useEffect(() => {
+    setIsMouse(window.matchMedia("(pointer: fine)").matches);
+  }, []);
+
+  useEffect(() => {
+    if (!isMouse) return;
     const handleMouseMove = (e: MouseEvent) => {
       target.current = { x: e.clientX, y: e.clientY };
     };
@@ -32,7 +38,9 @@ export default function CustomCursor() {
       window.removeEventListener("mousemove", handleMouseMove);
       cancelAnimationFrame(raf);
     };
-  }, []);
+  }, [isMouse]);
+
+  if (!isMouse) return null;
 
   return (
     <div

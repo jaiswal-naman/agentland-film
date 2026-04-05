@@ -1,11 +1,17 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function CursorSpotlight() {
   const spotlightRef = useRef<HTMLDivElement>(null);
+  const [isMouse, setIsMouse] = useState(false);
 
   useEffect(() => {
+    setIsMouse(window.matchMedia("(pointer: fine)").matches);
+  }, []);
+
+  useEffect(() => {
+    if (!isMouse) return;
     const el = spotlightRef.current;
     if (!el) return;
 
@@ -26,7 +32,9 @@ export default function CursorSpotlight() {
       window.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseleave", handleMouseLeave);
     };
-  }, []);
+  }, [isMouse]);
+
+  if (!isMouse) return null;
 
   return (
     <div

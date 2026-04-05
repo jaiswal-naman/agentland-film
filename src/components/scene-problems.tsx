@@ -92,7 +92,7 @@ export default function SceneProblems() {
         ref={pinnedRef}
         className="h-screen w-full bg-[#050507] overflow-hidden flex items-center"
       >
-        <div className="pl-[120px] pr-8 relative w-full">
+        <div className="pl-6 sm:pl-12 lg:pl-[120px] pr-4 sm:pr-8 relative w-full">
           {statements.map((item, i) => (
             <div
               key={i}

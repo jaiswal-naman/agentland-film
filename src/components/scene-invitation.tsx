@@ -75,7 +75,7 @@ export default function SceneInvitation() {
         ref={pinnedRef}
         className="h-screen w-full bg-[#050507] overflow-hidden flex items-center justify-center"
       >
-        <div className="w-full max-w-lg mx-auto px-6 text-center">
+        <div className="w-full max-w-lg mx-4 sm:mx-auto px-4 sm:px-6 text-center">
           {/* Headline */}
           <h2 className="inv-headline text-[clamp(32px,5vw,48px)] font-semibold tracking-tight text-[#E8E8E8] mb-12 opacity-0">
             See what you&apos;re missing.
@@ -83,7 +83,7 @@ export default function SceneInvitation() {
 
           {/* Card */}
           <div
-            className="inv-card rounded-xl border border-[#1A1A1A] bg-[#0C0C0E] p-8 opacity-0"
+            className="inv-card rounded-xl border border-[#1A1A1A] bg-[#0C0C0E] p-5 sm:p-8 opacity-0"
             style={{ maxWidth: "448px", margin: "0 auto" }}
           >
             {/* Label */}

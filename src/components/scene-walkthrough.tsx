@@ -155,9 +155,9 @@ export default function SceneWalkthrough() {
         {phases.map((phase, i) => {
           const alignClass =
             phase.align === "right"
-              ? "items-end text-right pr-[120px]"
+              ? "items-center md:items-end text-center md:text-right pr-6 sm:pr-12 lg:pr-[120px]"
               : phase.align === "left"
-                ? "items-start text-left pl-[120px]"
+                ? "items-center md:items-start text-center md:text-left pl-6 sm:pl-12 lg:pl-[120px]"
                 : "items-center text-center";
 
           return (
@@ -171,7 +171,7 @@ export default function SceneWalkthrough() {
               >
                 {phase.word}
               </h3>
-              <p className="wt-subtitle text-[24px] text-[#888888] mt-4 opacity-0 max-w-md">
+              <p className="wt-subtitle text-[18px] sm:text-[22px] md:text-[24px] text-[#888888] mt-3 sm:mt-4 opacity-0 max-w-md">
                 {phase.subtitle}
               </p>
               <div

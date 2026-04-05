@@ -104,7 +104,7 @@ export default function SceneVoid() {
         }} />
 
         {/* Phase 1-2: Big text left-aligned */}
-        <div className="pl-[120px] pr-8">
+        <div className="pl-6 sm:pl-12 lg:pl-[120px] pr-4 sm:pr-8">
           <h1
             className="big-text text-fluid-hero font-extrabold leading-[0.9] tracking-tight"
             style={{
@@ -114,7 +114,7 @@ export default function SceneVoid() {
             AUTOMATION
           </h1>
           <p
-            className="sub-text mt-6 text-[24px] text-[#888888] opacity-0"
+            className="sub-text mt-4 sm:mt-6 text-[18px] sm:text-[22px] md:text-[24px] text-[#888888] opacity-0"
             style={{ maxWidth: "600px" }}
           >
             is hiding inside your company.
