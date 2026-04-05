@@ -39,7 +39,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
         onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-between py-5 text-left group"
       >
-        <span className="text-base sm:text-lg font-medium text-text group-hover:text-accent-light transition-colors">
+        <span className="text-base sm:text-lg font-medium text-text group-hover:text-accent transition-colors">
           {q}
         </span>
         <svg
@@ -104,10 +104,43 @@ export default function SceneCredits() {
       {/* Founder */}
       <section className="py-24 sm:py-32 px-6 sm:px-8">
         <div className="credit-animate max-w-3xl mx-auto text-center">
+          {/* Avatar */}
+          <div className="flex justify-center mb-8">
+            <div
+              className="w-14 h-14 rounded-full flex items-center justify-center text-white text-xl font-bold"
+              style={{
+                background: "linear-gradient(135deg, #6366F1, #8B5CF6)",
+              }}
+            >
+              N
+            </div>
+          </div>
+
+          {/* Decorative quote mark */}
+          <div
+            className="text-[120px] sm:text-[160px] leading-none font-serif select-none -mb-16 sm:-mb-20"
+            style={{ color: "rgba(99, 102, 241, 0.15)" }}
+          >
+            &ldquo;
+          </div>
+
           <blockquote className="text-2xl sm:text-3xl md:text-4xl font-light text-text leading-relaxed tracking-tight mb-8">
-            &ldquo;Every business will run on AI agents. The only question is
-            how fast you get there.&rdquo;
+            The bottleneck was never intelligence. It was the missing layer
+            between &lsquo;we want AI&rsquo; and &lsquo;AI is
+            running.&rsquo; The window opened in 2026 — and we&apos;re
+            building it now.
           </blockquote>
+
+          {/* Gradient divider */}
+          <div className="flex justify-center mb-8">
+            <div
+              className="h-0.5 w-8 rounded-full"
+              style={{
+                background: "linear-gradient(90deg, #6366F1, #8B5CF6)",
+              }}
+            />
+          </div>
+
           <div className="flex flex-col items-center gap-2">
             <div className="text-lg sm:text-xl font-semibold text-text">
               Naman Jaiswal
@@ -139,13 +172,31 @@ export default function SceneCredits() {
       </section>
 
       {/* Final CTA */}
-      <section className="py-24 sm:py-32 px-6 sm:px-8 border-t border-white/5">
-        <div className="max-w-4xl mx-auto text-center">
+      <section className="relative py-24 sm:py-32 px-6 sm:px-8 border-t border-white/5 overflow-hidden">
+        {/* Animated gradient blobs */}
+        <div
+          className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full opacity-[0.07] blur-[120px] pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(circle, #6366F1 0%, transparent 70%)",
+            animation: "breathe 6s ease-in-out infinite",
+          }}
+        />
+        <div
+          className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[400px] h-[400px] rounded-full opacity-[0.05] blur-[100px] pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(circle, #8B5CF6 0%, transparent 70%)",
+            animation: "breathe 8s ease-in-out infinite 2s",
+          }}
+        />
+
+        <div className="relative z-10 max-w-4xl mx-auto text-center">
           <h2
             className="credit-animate text-[40px] sm:text-[60px] md:text-[70px] lg:text-[80px] font-bold tracking-tighter leading-none mb-8"
             style={{
               background:
-                "linear-gradient(135deg, #EDEDED 0%, #6366F1 50%, #818CF8 100%)",
+                "linear-gradient(135deg, #EDEDED 0%, #6366F1 50%, #22D3EE 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
             }}
@@ -157,7 +208,7 @@ export default function SceneCredits() {
           <div className="credit-animate">
             <a
               href="#audit"
-              className="inline-flex items-center gap-2 px-10 py-5 bg-white text-base font-semibold rounded-full transition-all duration-300 hover:bg-white/90 hover:shadow-[0_0_60px_rgba(255,255,255,0.1)]"
+              className="inline-flex items-center gap-2 px-10 py-5 bg-white text-base font-semibold rounded-full transition-all duration-300 hover:bg-white/90 hover:shadow-[0_0_60px_rgba(255,255,255,0.15)]"
               style={{ color: "#09090B" }}
             >
               Start Your Free Audit
@@ -182,8 +233,10 @@ export default function SceneCredits() {
       {/* Footer */}
       <footer className="py-10 px-6 sm:px-8 border-t border-white/5">
         <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="text-sm text-text-dim">
-            &copy; 2026 AgentLand. All rights reserved.
+          <div className="flex items-center gap-3 text-sm text-text-dim">
+            <span>&copy; 2026 AgentLand. All rights reserved.</span>
+            <span className="w-1 h-1 rounded-full bg-text-dim" />
+            <span>YC Startup School &apos;26</span>
           </div>
           <div className="flex items-center gap-6 text-sm text-text-dim">
             <a

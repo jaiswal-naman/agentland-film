@@ -199,3 +199,109 @@ body {
 .pin-spacer {
   overflow: visible !important;
 }
+
+/* Floating animation for cards */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Gradient text utility */
+.gradient-text-indigo {
+  background: linear-gradient(135deg, #6366F1, #818CF8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-accent {
+  background: linear-gradient(135deg, #EDEDED 0%, #6366F1 50%, #22D3EE 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glow backdrop for floating cards */
+.glow-backdrop {
+  position: absolute;
+  inset: -20px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(139, 92, 246, 0.04));
+  filter: blur(40px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Chasm glow */
+.chasm-glow {
+  box-shadow: 0 0 30px rgba(99, 102, 241, 0.3), 0 0 60px rgba(99, 102, 241, 0.15), 0 0 120px rgba(99, 102, 241, 0.05);
+}
+
+/* Particle float */
+@keyframes particle-drift {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0.6; }
+  25% { transform: translateY(-15px) translateX(8px); opacity: 1; }
+  50% { transform: translateY(-5px) translateX(-5px); opacity: 0.4; }
+  75% { transform: translateY(-20px) translateX(3px); opacity: 0.8; }
+}
+
+/* ----------------------------------------------------------- */
+/*  Scene-specific keyframes (void, gap, walkthrough)          */
+/* ----------------------------------------------------------- */
+
+/* SceneVoid: floating gradient orbs */
+@keyframes floatOrb1 {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(30px, -20px); }
+  50% { transform: translate(-15px, 25px); }
+  75% { transform: translate(20px, 15px); }
+}
+
+@keyframes floatOrb2 {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(-25px, 15px); }
+  50% { transform: translate(20px, -30px); }
+  75% { transform: translate(-10px, -20px); }
+}
+
+@keyframes floatOrb3 {
+  0%, 100% { transform: translate(0, 0); }
+  33% { transform: translate(15px, -15px); }
+  66% { transform: translate(-20px, 10px); }
+}
+
+/* SceneVoid + SceneGap: pulsing indigo glow */
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.08); }
+}
+
+/* SceneGap: chasm center pulse */
+@keyframes chasmPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* SceneGap: chasm particle float */
+@keyframes chasmFloat {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0.4; }
+  25% { transform: translateY(-12px) translateX(5px); opacity: 0.9; }
+  50% { transform: translateY(-6px) translateX(-8px); opacity: 0.5; }
+  75% { transform: translateY(-18px) translateX(3px); opacity: 0.8; }
+}
+
+/* SceneWalkthrough: slow connection ring spin */
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* SceneWalkthrough: monitor live pulse */
+@keyframes livePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
