@@ -7,11 +7,11 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const problems = [
-  "They don't know what to automate.",
-  "80% of engineering time on connectors.",
-  "No AI talent to hire.",
-  "Drowning in tools.",
+const statements = [
+  "They don\u2019t know what to automate.",
+  "They build connectors, not agents.",
+  "They hire teams that don\u2019t exist.",
+  "They buy tools that don\u2019t talk.",
 ];
 
 export default function SceneProblems() {
@@ -32,8 +32,8 @@ export default function SceneProblems() {
         pinSpacing: false,
       });
 
-      const statements = pinned.querySelectorAll(".problem-statement");
-      const bgPulse = pinned.querySelector(".bg-pulse");
+      const lines = pinned.querySelectorAll(".problem-line");
+      const segmentDuration = 1 / statements.length;
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -44,52 +44,28 @@ export default function SceneProblems() {
         },
       });
 
-      // Each statement: appear -> hold -> fade. 4 statements over 100% scroll.
-      const perStatement = 1 / problems.length;
+      lines.forEach((line, i) => {
+        const start = i * segmentDuration;
+        const fadeIn = segmentDuration * 0.25;
+        const hold = segmentDuration * 0.4;
+        const fadeOut = segmentDuration * 0.25;
 
-      statements.forEach((stmt, i) => {
-        const start = i * perStatement;
-
-        // Appear
+        // Fade in
         tl.fromTo(
-          stmt,
-          { opacity: 0, y: 30, scale: 0.97 },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: perStatement * 0.3,
-            ease: "power2.out",
-          },
-          start
-        );
-
-        // Background pulse with each statement
-        tl.to(
-          bgPulse,
-          {
-            opacity: 0.08 + i * 0.02,
-            scale: 1 + i * 0.02,
-            duration: perStatement * 0.2,
-            ease: "power1.inOut",
-          },
+          line,
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: fadeIn, ease: "power2.out" },
           start
         );
 
         // Hold
-        tl.to({}, { duration: perStatement * 0.35 }, start + perStatement * 0.3);
+        tl.to({}, { duration: hold }, start + fadeIn);
 
-        // Fade out (except last one which fades at the end)
+        // Fade out
         tl.to(
-          stmt,
-          {
-            opacity: 0,
-            y: -20,
-            scale: 0.98,
-            duration: perStatement * 0.35,
-            ease: "power2.in",
-          },
-          start + perStatement * 0.65
+          line,
+          { opacity: 0, y: -20, duration: fadeOut, ease: "power2.in" },
+          start + fadeIn + hold
         );
       });
 
@@ -101,26 +77,17 @@ export default function SceneProblems() {
   );
 
   return (
-    <div ref={containerRef} className="relative h-[300vh]">
+    <div ref={containerRef} className="relative h-[250vh]">
       <div
         ref={pinnedRef}
-        className="h-screen w-full flex items-center justify-center bg-base overflow-hidden"
+        className="h-screen w-full bg-[#050507] overflow-hidden flex items-center"
       >
-        {/* Background pulse */}
-        <div
-          className="bg-pulse absolute inset-0 opacity-0"
-          style={{
-            background:
-              "radial-gradient(ellipse at 50% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 60%)",
-          }}
-        />
-
-        <div className="relative z-10 w-full h-full flex items-center justify-center px-8">
-          {/* Stack all statements on top of each other */}
-          {problems.map((text, i) => (
+        <div className="pl-[120px] pr-8 relative w-full">
+          {statements.map((text, i) => (
             <p
               key={i}
-              className="problem-statement absolute text-center text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-medium text-text leading-tight tracking-tight max-w-5xl opacity-0"
+              className="problem-line absolute text-[clamp(28px,4vw,48px)] font-semibold text-[#E8E8E8] leading-tight opacity-0"
+              style={{ maxWidth: "640px" }}
             >
               {text}
             </p>

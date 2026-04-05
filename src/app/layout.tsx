@@ -1,19 +1,17 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Geist } from "next/font/google";
+import { Space_Grotesk } from "next/font/google";
 import "@/app/globals.css";
-import { cn } from "@/lib/utils";
-
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-display",
 });
 
 export const metadata: Metadata = {
-  title: "AgentLand - Your Business. Automated.",
+  title: "AgentLand — Your Business. Automated.",
   description:
-    "Connect your tools. Discover automation opportunities. Deploy AI agents. Monitor everything. AgentLand is the platform that makes AI adoption inevitable.",
+    "Connect your tools. Discover automation opportunities. Deploy AI agents. Monitor everything.",
 };
 
 export default function RootLayout({
@@ -22,8 +20,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("antialiased", spaceGrotesk.className, "font-sans", geist.variable)}>
-      <body className="min-h-screen bg-base text-text">{children}</body>
+    <html lang="en" className={spaceGrotesk.variable}>
+      <body className="min-h-screen bg-[#050507] text-[#E8E8E8] font-[family-name:var(--font-display)]">
+        {/* Film grain — the ONLY texture */}
+        <div className="film-grain" />
+        {children}
+      </body>
     </html>
   );
 }

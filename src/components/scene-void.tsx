@@ -4,7 +4,6 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { DotPattern } from "@/components/ui/dot-pattern";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,7 +17,7 @@ export default function SceneVoid() {
       const pinned = pinnedRef.current;
       if (!container || !pinned) return;
 
-      // Pin the scene
+      // Pin
       const trigger = ScrollTrigger.create({
         trigger: container,
         start: "top top",
@@ -27,15 +26,11 @@ export default function SceneVoid() {
         pinSpacing: false,
       });
 
-      // Get all character spans for line 1
-      const line1Chars = pinned.querySelectorAll(".line1-char");
-      const line2Chars = pinned.querySelectorAll(".line2-char");
-      const cursor = pinned.querySelector(".typing-cursor");
-      const allContent = pinned.querySelector(".void-content");
-      const glowBg = pinned.querySelector(".indigo-glow-bg");
-      const orbs = pinned.querySelectorAll(".floating-orb");
+      const bigText = pinned.querySelector(".big-text");
+      const subText = pinned.querySelector(".sub-text");
+      const revealGroup = pinned.querySelector(".reveal-group");
 
-      // Master timeline scrubbed by scroll
+      // Master timeline
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: container,
@@ -45,82 +40,49 @@ export default function SceneVoid() {
         },
       });
 
-      // Orbs fade in early
+      // Phase 1: "AUTOMATION" fades from #1A1A1A to #E8E8E8 (0 -> 0.25)
       tl.fromTo(
-        orbs,
-        { opacity: 0 },
-        { opacity: 1, duration: 0.1, stagger: 0.02, ease: "power2.out" },
+        bigText,
+        { color: "#1A1A1A", opacity: 1 },
+        { color: "#E8E8E8", duration: 0.25, ease: "power2.out" },
         0
       );
 
-      // Glow background fades in with text
+      // Phase 2: Sub text fades in (0.2 -> 0.35)
       tl.fromTo(
-        glowBg,
-        { opacity: 0 },
-        { opacity: 1, duration: 0.2, ease: "power2.out" },
-        0
+        subText,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.15, ease: "power2.out" },
+        0.2
       );
 
-      // Phase 1: Type line 1 (0% -> 35%)
-      tl.fromTo(
-        line1Chars,
-        { opacity: 0 },
-        { opacity: 1, stagger: 0.02, duration: 0.25, ease: "none" },
-        0.02
-      );
+      // Phase 3: Hold (0.35 -> 0.5)
+      tl.to({}, { duration: 0.15 });
 
-      // Show cursor after line 1
-      tl.fromTo(
-        cursor,
-        { opacity: 0 },
-        { opacity: 1, duration: 0.01, ease: "none" },
-        0.27
-      );
-
-      // Phase 2: Hold (35% -> 48%)
-      tl.to({}, { duration: 0.13 });
-
-      // Phase 3: Type line 2 (48% -> 70%)
-      tl.fromTo(
-        line2Chars,
-        { opacity: 0 },
-        { opacity: 1, stagger: 0.02, duration: 0.18, ease: "none" }
-      );
-
-      // Phase 4: Hold (70% -> 82%)
-      tl.to({}, { duration: 0.12 });
-
-      // Phase 5: Dissolve (82% -> 100%)
-      tl.to(cursor, {
+      // Phase 4: All text fades out (0.5 -> 0.6)
+      tl.to([bigText, subText], {
         opacity: 0,
-        duration: 0.02,
-        ease: "none",
-      });
-      tl.to(allContent, {
-        opacity: 0,
-        scale: 0.98,
-        filter: "blur(8px)",
-        duration: 0.15,
+        duration: 0.1,
         ease: "power2.in",
       });
-      tl.to(
-        glowBg,
-        {
-          opacity: 0,
-          duration: 0.15,
-          ease: "power2.in",
-        },
-        "<"
+
+      // Phase 5: Reveal text fades in (0.6 -> 0.8)
+      tl.fromTo(
+        revealGroup,
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.2, ease: "power2.out" },
+        0.6
       );
-      tl.to(
-        orbs,
-        {
-          opacity: 0,
-          duration: 0.15,
-          ease: "power2.in",
-        },
-        "<"
-      );
+
+      // Phase 6: Hold (0.8 -> 0.9)
+      tl.to({}, { duration: 0.1 });
+
+      // Phase 7: Dissolve (0.9 -> 1.0)
+      tl.to(revealGroup, {
+        opacity: 0,
+        duration: 0.1,
+        ease: "power2.in",
+      });
 
       return () => {
         trigger.kill();
@@ -129,130 +91,37 @@ export default function SceneVoid() {
     { scope: containerRef }
   );
 
-  const line1 = "Your company is full of automation.";
-  const line2 = "You just can't see it yet.";
-
   return (
-    <div ref={containerRef} className="relative h-[250vh]">
+    <div ref={containerRef} className="relative h-[300vh]">
       <div
         ref={pinnedRef}
-        className="h-screen w-full flex items-center justify-center bg-base overflow-hidden"
+        className="h-screen w-full flex flex-col justify-center bg-[#050507] overflow-hidden"
       >
-        {/* Dot pattern background */}
-        <DotPattern className="opacity-[0.03] text-[#6366F1]" />
-
-        {/* Floating gradient orbs */}
-        <div
-          className="floating-orb absolute opacity-0"
-          style={{
-            width: 300,
-            height: 300,
-            top: "15%",
-            left: "10%",
-            borderRadius: "50%",
-            background:
-              "radial-gradient(circle, rgba(99,102,241,0.08) 0%, transparent 70%)",
-            filter: "blur(60px)",
-            animation: "floatOrb1 12s ease-in-out infinite",
-          }}
-        />
-        <div
-          className="floating-orb absolute opacity-0"
-          style={{
-            width: 250,
-            height: 250,
-            bottom: "20%",
-            right: "8%",
-            borderRadius: "50%",
-            background:
-              "radial-gradient(circle, rgba(139,92,246,0.06) 0%, transparent 70%)",
-            filter: "blur(50px)",
-            animation: "floatOrb2 15s ease-in-out infinite",
-          }}
-        />
-        <div
-          className="floating-orb absolute opacity-0"
-          style={{
-            width: 200,
-            height: 200,
-            top: "60%",
-            left: "55%",
-            borderRadius: "50%",
-            background:
-              "radial-gradient(circle, rgba(99,102,241,0.05) 0%, transparent 70%)",
-            filter: "blur(40px)",
-            animation: "floatOrb3 18s ease-in-out infinite",
-          }}
-        />
-
-        {/* Pulsing indigo glow behind text */}
-        <div
-          className="indigo-glow-bg absolute opacity-0"
-          style={{
-            width: 600,
-            height: 300,
-            borderRadius: "50%",
-            background:
-              "radial-gradient(ellipse at 50% 50%, rgba(99,102,241,0.12) 0%, rgba(99,102,241,0.04) 40%, transparent 70%)",
-            filter: "blur(40px)",
-            animation: "pulseGlow 4s ease-in-out infinite",
-          }}
-        />
-
-        {/* Subtle noise particles */}
-        <div className="absolute inset-0 bg-breathe opacity-20">
-          <div
-            className="absolute inset-0"
+        {/* Phase 1-2: Big text left-aligned */}
+        <div className="pl-[120px] pr-8">
+          <h1
+            className="big-text font-extrabold leading-[0.9] tracking-tight"
             style={{
-              background:
-                "radial-gradient(ellipse at 50% 50%, rgba(99, 102, 241, 0.03) 0%, transparent 70%)",
+              fontSize: "clamp(80px, 14vw, 200px)",
+              color: "#1A1A1A",
             }}
-          />
+          >
+            AUTOMATION
+          </h1>
+          <p
+            className="sub-text mt-6 text-[20px] text-[#555555] opacity-0"
+            style={{ maxWidth: "600px" }}
+          >
+            is hiding inside your company.
+          </p>
         </div>
 
-        <div className="void-content relative z-10 text-center px-8 max-w-4xl">
-          {/* Line 1 */}
-          <p className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-tight text-text-muted leading-tight mb-6">
-            {line1.split("").map((char, i) => (
-              <span key={i} className="line1-char inline-block opacity-0">
-                {char === " " ? "\u00A0" : char}
-              </span>
-            ))}
-          </p>
-
-          {/* Line 2 — indigo gradient text */}
-          <p className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight leading-tight relative">
-            {line2.split("").map((char, i) => (
-              <span
-                key={i}
-                className="line2-char inline-block opacity-0"
-                style={{
-                  background:
-                    "linear-gradient(135deg, #818CF8, #6366F1, #A78BFA)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  textShadow: "none",
-                }}
-              >
-                {char === " " ? "\u00A0" : char}
-              </span>
-            ))}
-            {/* Blinking cursor */}
-            <span
-              className="typing-cursor inline-block opacity-0 cursor-blink align-middle"
-              style={{
-                width: 2,
-                height: "0.85em",
-                background: "#6366F1",
-                boxShadow:
-                  "0 0 8px rgba(99,102,241,0.6), 0 0 16px rgba(99,102,241,0.3)",
-                marginLeft: 4,
-                borderRadius: 1,
-                verticalAlign: "baseline",
-                position: "relative",
-                top: "0.05em",
-              }}
-            />
+        {/* Phase 5: Centered reveal */}
+        <div className="reveal-group absolute inset-0 flex items-center justify-center opacity-0">
+          <p className="text-[clamp(32px,5vw,60px)] font-semibold tracking-tight text-[#E8E8E8]">
+            AgentLand{" "}
+            <span className="text-[#6366F1]">finds</span>{" "}
+            it.
           </p>
         </div>
       </div>
