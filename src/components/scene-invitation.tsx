@@ -16,18 +16,20 @@ const steps = [
 export default function SceneInvitation() {
   const containerRef = useRef<HTMLDivElement>(null);
   const pinnedRef = useRef<HTMLDivElement>(null);
+  const mobileRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
       const container = containerRef.current;
       const pinned = pinnedRef.current;
-      if (!container || !pinned) return;
+      const mobile = mobileRef.current;
+      if (!container) return;
 
       const isMobile = window.innerWidth < 768;
 
       if (isMobile) {
-        // Mobile: simple fade-in, no pin
-        const elements = pinned.querySelectorAll(".animate-in");
+        if (!mobile) return;
+        const elements = mobile.querySelectorAll(".animate-in");
         elements.forEach((el, i) => {
           gsap.fromTo(
             el,
@@ -36,7 +38,7 @@ export default function SceneInvitation() {
               opacity: 1,
               y: 0,
               duration: 0.6,
-              delay: i * 0.2,
+              delay: i * 0.15,
               ease: "power2.out",
               scrollTrigger: {
                 trigger: el,
@@ -50,6 +52,8 @@ export default function SceneInvitation() {
       }
 
       // Desktop: existing pin+scrub logic
+      if (!pinned) return;
+
       const trigger = ScrollTrigger.create({
         trigger: container,
         start: "top top",
@@ -97,22 +101,15 @@ export default function SceneInvitation() {
   );
 
   return (
-    <div ref={containerRef} className="relative min-h-screen md:h-[140vh]">
-      <div
-        ref={pinnedRef}
-        className="min-h-screen md:h-screen w-full bg-[#050507] overflow-hidden flex items-center justify-center py-24 md:py-0"
-      >
-        <div className="w-full max-w-lg mx-4 sm:mx-auto px-4 sm:px-6 text-center">
-          {/* Headline */}
-          <h2 className="inv-headline animate-in text-[28px] md:text-[clamp(32px,5vw,48px)] font-semibold tracking-tight text-[#E8E8E8] mb-12 md:opacity-0">
+    <div ref={containerRef}>
+      {/* MOBILE LAYOUT -- simple, flowing, no absolute, no vh heights */}
+      <div ref={mobileRef} className="md:hidden">
+        <section className="min-h-screen flex flex-col items-center justify-center px-4 py-20 bg-[#050507]">
+          <h2 className="animate-in text-[24px] font-medium text-[#E8E8E8] mb-8 text-center">
             See what you&apos;re missing.
           </h2>
 
-          {/* Card */}
-          <div
-            className="inv-card animate-in rounded-xl border border-[#1A1A1A] bg-[#0C0C0E] p-4 sm:p-8 md:opacity-0"
-            style={{ maxWidth: "448px", margin: "0 auto" }}
-          >
+          <div className="animate-in w-full border border-[#1A1A1A] bg-[#0C0C0E] rounded-xl p-5">
             {/* Label */}
             <p className="text-[14px] uppercase tracking-widest text-[#888888] mb-6">
               Free Audit
@@ -123,7 +120,7 @@ export default function SceneInvitation() {
               {steps.map((step, i) => (
                 <div
                   key={i}
-                  className="flex items-center gap-3 text-[#E8E8E8] text-[14px] md:text-[16px]"
+                  className="flex items-center gap-3 text-[#E8E8E8] text-[14px]"
                 >
                   <span className="text-[#888888] text-[14px]">&rarr;</span>
                   <span>{step}</span>
@@ -133,14 +130,71 @@ export default function SceneInvitation() {
 
             {/* CTA Button */}
             <button
-              className="w-full py-3 px-8 rounded-lg font-semibold text-white text-[16px] transition-all duration-300 hover:tracking-[0.05em] hover:-translate-y-0.5 hover:opacity-90"
+              className="w-full py-3 rounded-lg font-semibold text-white text-[16px] transition-all duration-300"
               style={{ backgroundColor: "#6366F1" }}
             >
               Get Your Free Audit &rarr;
             </button>
 
             {/* Trust signal */}
-            <p className="text-[12px] md:text-[14px] text-[#555] mt-4">Read-only access &middot; No credit card &middot; Results in 24 hours</p>
+            <p className="text-[12px] text-[#555555] mt-4 text-center">
+              Read-only access &middot; No credit card &middot; Results in 24
+              hours
+            </p>
+          </div>
+
+        </section>
+      </div>
+
+      {/* DESKTOP LAYOUT -- original pin+scrub with absolute positioning */}
+      <div className="hidden md:block relative h-[140vh]">
+        <div
+          ref={pinnedRef}
+          className="h-screen w-full bg-[#050507] overflow-hidden flex items-center justify-center"
+        >
+          <div className="w-full max-w-lg mx-auto px-6 text-center">
+            {/* Headline */}
+            <h2 className="inv-headline text-[clamp(32px,5vw,48px)] font-semibold tracking-tight text-[#E8E8E8] mb-12 opacity-0">
+              See what you&apos;re missing.
+            </h2>
+
+            {/* Card */}
+            <div
+              className="inv-card rounded-xl border border-[#1A1A1A] bg-[#0C0C0E] p-8 opacity-0"
+              style={{ maxWidth: "448px", margin: "0 auto" }}
+            >
+              {/* Label */}
+              <p className="text-[14px] uppercase tracking-widest text-[#888888] mb-6">
+                Free Audit
+              </p>
+
+              {/* Steps */}
+              <div className="space-y-4 mb-8">
+                {steps.map((step, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center gap-3 text-[#E8E8E8] text-[16px]"
+                  >
+                    <span className="text-[#888888] text-[14px]">&rarr;</span>
+                    <span>{step}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* CTA Button */}
+              <button
+                className="w-full py-3 px-8 rounded-lg font-semibold text-white text-[16px] transition-all duration-300 hover:tracking-[0.05em] hover:-translate-y-0.5 hover:opacity-90"
+                style={{ backgroundColor: "#6366F1" }}
+              >
+                Get Your Free Audit &rarr;
+              </button>
+
+              {/* Trust signal */}
+              <p className="text-[14px] text-[#555555] mt-4">
+                Read-only access &middot; No credit card &middot; Results in 24
+                hours
+              </p>
+            </div>
           </div>
         </div>
       </div>

@@ -41,18 +41,20 @@ const phases = [
 export default function SceneWalkthrough() {
   const containerRef = useRef<HTMLDivElement>(null);
   const pinnedRef = useRef<HTMLDivElement>(null);
+  const mobileRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
       const container = containerRef.current;
       const pinned = pinnedRef.current;
-      if (!container || !pinned) return;
+      const mobile = mobileRef.current;
+      if (!container) return;
 
       const isMobile = window.innerWidth < 768;
 
       if (isMobile) {
-        // Mobile: each phase fades in when scrolled into view, no pin
-        const phaseEls = pinned.querySelectorAll(".wt-phase-mobile");
+        if (!mobile) return;
+        const phaseEls = mobile.querySelectorAll(".animate-in");
         phaseEls.forEach((el, i) => {
           gsap.fromTo(
             el,
@@ -75,6 +77,8 @@ export default function SceneWalkthrough() {
       }
 
       // Desktop: existing pin+scrub logic
+      if (!pinned) return;
+
       const trigger = ScrollTrigger.create({
         trigger: container,
         start: "top top",
@@ -113,7 +117,12 @@ export default function SceneWalkthrough() {
         tl.fromTo(
           title,
           { opacity: 0, y: 40 },
-          { opacity: 1, y: 0, duration: perPhase * 0.2, ease: "power2.out" },
+          {
+            opacity: 1,
+            y: 0,
+            duration: perPhase * 0.2,
+            ease: "power2.out",
+          },
           start + perPhase * 0.02
         );
 
@@ -121,7 +130,12 @@ export default function SceneWalkthrough() {
         tl.fromTo(
           subtitle,
           { opacity: 0, y: 15 },
-          { opacity: 1, y: 0, duration: perPhase * 0.15, ease: "power2.out" },
+          {
+            opacity: 1,
+            y: 0,
+            duration: perPhase * 0.15,
+            ease: "power2.out",
+          },
           start + perPhase * 0.18
         );
 
@@ -174,67 +188,69 @@ export default function SceneWalkthrough() {
   );
 
   return (
-    <div ref={containerRef} className="relative min-h-screen md:h-[260vh]">
-      <div
-        ref={pinnedRef}
-        className="min-h-screen md:h-screen w-full bg-[#050507] overflow-hidden relative"
-      >
-        {/* Mobile layout: stacked phases that scroll naturally */}
-        <div className="md:hidden flex flex-col w-full">
+    <div ref={containerRef}>
+      {/* MOBILE LAYOUT -- simple, flowing, no absolute, no vh heights */}
+      <div ref={mobileRef} className="md:hidden">
+        <section className="px-6 py-8 bg-[#050507]">
           {phases.map((phase) => (
             <div
               key={phase.word}
-              className="wt-phase-mobile min-h-[40vh] py-16 flex flex-col items-center justify-center text-center px-6"
-            >
-              <h3 className="text-fluid-phase font-extrabold tracking-tight leading-none text-[#E8E8E8]">
-                {phase.word}
-              </h3>
-              <p className="text-[16px] text-[#888888] mt-3 max-w-md">
-                {phase.subtitle}
-              </p>
-              {/* Static colored line on mobile */}
-              <div
-                className="mt-6 h-[2px] w-[40px]"
-                style={{ backgroundColor: phase.lineColor }}
-              />
-            </div>
-          ))}
-        </div>
-
-        {/* Desktop layout: absolute positioned phases for pin/scrub */}
-        {phases.map((phase) => {
-          const alignClass =
-            phase.align === "right"
-              ? "items-center md:items-end text-center md:text-right pr-6 sm:pr-12 lg:pr-[120px]"
-              : phase.align === "left"
-                ? "items-center md:items-start text-center md:text-left pl-6 sm:pl-12 lg:pl-[120px]"
-                : "items-center text-center";
-
-          return (
-            <div
-              key={phase.word}
-              className={`wt-phase hidden md:flex absolute inset-0 flex-col justify-center px-8 opacity-0 ${alignClass}`}
-              style={{ display: "none" }}
+              className="py-16 text-center animate-in"
             >
               <h3
-                className="wt-title text-fluid-phase font-extrabold tracking-tight leading-none text-[#E8E8E8] opacity-0"
+                className="text-[36px] font-bold tracking-tighter leading-none"
+                style={{ color: phase.lineColor }}
               >
                 {phase.word}
               </h3>
-              <p className="wt-subtitle text-[18px] sm:text-[22px] md:text-[24px] text-[#888888] mt-3 sm:mt-4 opacity-0 max-w-md">
-                {phase.subtitle}
-              </p>
               <div
-                className="wt-line mt-8 h-[1px]"
-                style={{
-                  width: "min(400px, 60vw)",
-                  transform: "scaleX(0)",
-                  backgroundColor: phase.lineColor,
-                }}
+                className="w-10 h-0.5 mx-auto mt-4 mb-4"
+                style={{ backgroundColor: phase.lineColor }}
               />
+              <p className="text-[16px] text-[#888888]">{phase.subtitle}</p>
             </div>
-          );
-        })}
+          ))}
+        </section>
+      </div>
+
+      {/* DESKTOP LAYOUT -- original pin+scrub with absolute positioning */}
+      <div className="hidden md:block relative h-[260vh]">
+        <div
+          ref={pinnedRef}
+          className="h-screen w-full bg-[#050507] overflow-hidden relative"
+        >
+          {phases.map((phase) => {
+            const alignClass =
+              phase.align === "right"
+                ? "items-end text-right pr-12 lg:pr-[120px]"
+                : phase.align === "left"
+                  ? "items-start text-left pl-12 lg:pl-[120px]"
+                  : "items-center text-center";
+
+            return (
+              <div
+                key={phase.word}
+                className={`wt-phase absolute inset-0 flex flex-col justify-center px-8 opacity-0 ${alignClass}`}
+                style={{ display: "none" }}
+              >
+                <h3 className="wt-title text-fluid-phase font-extrabold tracking-tight leading-none text-[#E8E8E8] opacity-0">
+                  {phase.word}
+                </h3>
+                <p className="wt-subtitle text-[22px] md:text-[24px] text-[#888888] mt-4 opacity-0 max-w-md">
+                  {phase.subtitle}
+                </p>
+                <div
+                  className="wt-line mt-8 h-[1px]"
+                  style={{
+                    width: "min(400px, 60vw)",
+                    transform: "scaleX(0)",
+                    backgroundColor: phase.lineColor,
+                  }}
+                />
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

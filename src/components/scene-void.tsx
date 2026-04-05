@@ -10,77 +10,44 @@ gsap.registerPlugin(ScrollTrigger);
 export default function SceneVoid() {
   const containerRef = useRef<HTMLDivElement>(null);
   const pinnedRef = useRef<HTMLDivElement>(null);
+  const mobileRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
       const container = containerRef.current;
       const pinned = pinnedRef.current;
-      if (!container || !pinned) return;
+      const mobile = mobileRef.current;
+      if (!container) return;
 
       const isMobile = window.innerWidth < 768;
 
       if (isMobile) {
-        // Mobile: simple time-based animations, no pin
-        const bigText = pinned.querySelector(".big-text");
-        const subText = pinned.querySelector(".sub-text");
-        const revealGroup = pinned.querySelector(".reveal-group");
-
-        // "AUTOMATION" fades from dark to light when visible
-        gsap.fromTo(
-          bigText,
-          { color: "#1A1A1A", opacity: 1 },
-          {
-            color: "#E8E8E8",
-            duration: 1,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: bigText,
-              start: "top 85%",
-              toggleActions: "play none none none",
-            },
-          }
-        );
-
-        // Sub text fades in after a delay
-        gsap.fromTo(
-          subText,
-          { opacity: 0, y: 20 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.6,
-            delay: 0.5,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: bigText,
-              start: "top 85%",
-              toggleActions: "play none none none",
-            },
-          }
-        );
-
-        // Reveal group fades in when scrolled into view
-        gsap.set(revealGroup, { opacity: 0, y: 30, position: "relative", display: "flex" });
-        gsap.fromTo(
-          revealGroup,
-          { opacity: 0, y: 30 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.6,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: revealGroup,
-              start: "top 85%",
-              toggleActions: "play none none none",
-            },
-          }
-        );
-
+        if (!mobile) return;
+        const elements = mobile.querySelectorAll(".animate-in");
+        elements.forEach((el, i) => {
+          gsap.fromTo(
+            el,
+            { opacity: 0, y: 30 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.6,
+              delay: i * 0.15,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: el,
+                start: "top 85%",
+                toggleActions: "play none none none",
+              },
+            }
+          );
+        });
         return;
       }
 
       // Desktop: existing pin+scrub logic
+      if (!pinned) return;
+
       const trigger = ScrollTrigger.create({
         trigger: container,
         start: "top top",
@@ -154,42 +121,60 @@ export default function SceneVoid() {
   );
 
   return (
-    <div ref={containerRef} className="relative min-h-screen md:h-[180vh]">
-      <div
-        ref={pinnedRef}
-        className="min-h-screen md:h-screen w-full flex flex-col justify-center bg-[#050507] overflow-hidden"
-      >
-        {/* Ambient breathing glow */}
-        <div className="absolute inset-0 opacity-[0.03]" style={{
-          background: "radial-gradient(ellipse at 30% 50%, #6366F120 0%, transparent 70%)",
-          animation: "breathe 12s ease-in-out infinite"
-        }} />
-
-        {/* Phase 1-2: Big text left-aligned */}
-        <div className="pl-6 sm:pl-12 lg:pl-[120px] pr-4 sm:pr-8">
-          <h1
-            className="big-text text-fluid-hero font-extrabold leading-[0.9] tracking-tight"
-            style={{
-              color: "#1A1A1A",
-            }}
-          >
+    <div ref={containerRef}>
+      {/* MOBILE LAYOUT -- simple, flowing, no absolute, no vh heights */}
+      <div ref={mobileRef} className="md:hidden">
+        <section className="min-h-screen flex flex-col justify-center px-6 py-20 bg-[#050507]">
+          <h1 className="animate-in text-[40px] font-extrabold tracking-tighter leading-none text-[#E8E8E8] mb-4">
             AUTOMATION
           </h1>
-          <p
-            className="sub-text mt-4 sm:mt-6 text-[16px] md:text-[22px] lg:text-[24px] text-[#888888] opacity-0"
-            style={{ maxWidth: "600px" }}
-          >
+          <p className="animate-in text-[16px] text-[#888888] mb-16">
             is hiding inside your company.
           </p>
-        </div>
-
-        {/* Phase 5: Centered reveal -- on mobile it's positioned below, not absolute */}
-        <div className="reveal-group relative md:absolute md:inset-0 flex items-center justify-center opacity-0 mt-16 md:mt-0">
-          <p className="text-[28px] md:text-[clamp(32px,5vw,60px)] font-semibold tracking-tight text-[#E8E8E8] px-6 text-center">
-            AgentLand{" "}
-            <span className="text-[#6366F1]">finds</span>{" "}
-            it.
+          <p className="animate-in text-[24px] font-semibold text-[#E8E8E8] text-center">
+            AgentLand <span className="text-[#6366F1]">finds</span> it.
           </p>
+        </section>
+      </div>
+
+      {/* DESKTOP LAYOUT -- original pin+scrub with absolute positioning */}
+      <div className="hidden md:block relative h-[180vh]">
+        <div
+          ref={pinnedRef}
+          className="h-screen w-full flex flex-col justify-center bg-[#050507] overflow-hidden"
+        >
+          {/* Ambient breathing glow */}
+          <div
+            className="absolute inset-0 opacity-[0.03]"
+            style={{
+              background:
+                "radial-gradient(ellipse at 30% 50%, #6366F120 0%, transparent 70%)",
+              animation: "breathe 12s ease-in-out infinite",
+            }}
+          />
+
+          {/* Phase 1-2: Big text left-aligned */}
+          <div className="pl-12 lg:pl-[120px] pr-8">
+            <h1
+              className="big-text text-fluid-hero font-extrabold leading-[0.9] tracking-tight"
+              style={{ color: "#1A1A1A" }}
+            >
+              AUTOMATION
+            </h1>
+            <p
+              className="sub-text mt-6 text-[22px] lg:text-[24px] text-[#888888] opacity-0"
+              style={{ maxWidth: "600px" }}
+            >
+              is hiding inside your company.
+            </p>
+          </div>
+
+          {/* Phase 5: Centered reveal */}
+          <div className="reveal-group absolute inset-0 flex items-center justify-center opacity-0">
+            <p className="text-[clamp(32px,5vw,60px)] font-semibold tracking-tight text-[#E8E8E8] px-6 text-center">
+              AgentLand <span className="text-[#6366F1]">finds</span> it.
+            </p>
+          </div>
         </div>
       </div>
     </div>

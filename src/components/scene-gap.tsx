@@ -10,18 +10,20 @@ gsap.registerPlugin(ScrollTrigger);
 export default function SceneGap() {
   const containerRef = useRef<HTMLDivElement>(null);
   const pinnedRef = useRef<HTMLDivElement>(null);
+  const mobileRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
       const container = containerRef.current;
       const pinned = pinnedRef.current;
-      if (!container || !pinned) return;
+      const mobile = mobileRef.current;
+      if (!container) return;
 
       const isMobile = window.innerWidth < 768;
 
       if (isMobile) {
-        // Mobile: simple time-based animations, no pin
-        const elements = pinned.querySelectorAll(".animate-in");
+        if (!mobile) return;
+        const elements = mobile.querySelectorAll(".animate-in");
         elements.forEach((el, i) => {
           gsap.fromTo(
             el,
@@ -30,7 +32,7 @@ export default function SceneGap() {
               opacity: 1,
               y: 0,
               duration: 0.6,
-              delay: i * 0.3,
+              delay: i * 0.15,
               ease: "power2.out",
               scrollTrigger: {
                 trigger: el,
@@ -44,6 +46,8 @@ export default function SceneGap() {
       }
 
       // Desktop: existing pin+scrub logic
+      if (!pinned) return;
+
       const trigger = ScrollTrigger.create({
         trigger: container,
         start: "top top",
@@ -124,59 +128,74 @@ export default function SceneGap() {
   );
 
   return (
-    <div ref={containerRef} className="relative min-h-screen md:h-[160vh]">
-      <div
-        ref={pinnedRef}
-        className="min-h-screen md:h-screen w-full bg-[#050507] overflow-hidden relative flex items-center"
-      >
-        {/* Mobile: stacked vertically, centered. Desktop: side-by-side */}
-        <div className="flex flex-col md:flex-row items-center justify-center md:justify-between w-full px-6 sm:px-12 md:px-[120px] gap-0 md:gap-0 py-24 md:py-0">
-          {/* 79% */}
+    <div ref={containerRef}>
+      {/* MOBILE LAYOUT -- simple, flowing, no absolute, no vh heights */}
+      <div ref={mobileRef} className="md:hidden">
+        <section className="min-h-screen flex flex-col items-center justify-center px-6 py-20 gap-8 bg-[#050507]">
           <div className="text-center animate-in">
-            <div
-              className="left-num text-fluid-stat font-extrabold leading-none tracking-tighter text-[#E8E8E8] md:opacity-0"
-            >
-              79
-              <span
-                className="text-[#888888]"
-                style={{ fontSize: "clamp(24px, 6vw, 80px)" }}
-              >
-                %
-              </span>
-            </div>
-            <p className="left-label text-[16px] sm:text-[20px] text-[#888888] mt-2 md:opacity-0">
-              adopting
-            </p>
+            <span className="text-[72px] font-extrabold text-[#E8E8E8] leading-none">
+              79<span className="text-[#888888] text-[36px]">%</span>
+            </span>
+            <p className="text-[16px] text-[#888888] mt-2">adopting</p>
           </div>
-
-          {/* Spacer on mobile */}
-          <div className="py-8 md:py-0" />
-
-          {/* 11% */}
+          <div className="animate-in w-12 h-px bg-[#333333]" />
           <div className="text-center animate-in">
-            <div
-              className="right-num text-fluid-stat font-extrabold leading-none tracking-tighter md:opacity-0"
-            >
+            <span className="text-[72px] font-extrabold leading-none">
               <span className="gradient-text-accent">11</span>
-              <span
-                className="text-[#888888]"
-                style={{ fontSize: "clamp(24px, 6vw, 80px)" }}
-              >
-                %
-              </span>
-            </div>
-            <p className="right-label text-[16px] sm:text-[20px] text-[#888888] mt-2 md:opacity-0">
-              running
-            </p>
+              <span className="text-[#888888] text-[36px]">%</span>
+            </span>
+            <p className="text-[16px] text-[#888888] mt-2">running</p>
           </div>
-
-          {/* Spacer on mobile */}
-          <div className="py-8 md:py-0" />
-
-          {/* Bottom verdict -- on mobile it flows naturally, on desktop it's absolute */}
-          <p className="bottom-text animate-in text-[20px] md:text-[16px] sm:text-[20px] text-[#888888] md:opacity-0 md:absolute md:bottom-[15%] md:left-1/2 md:-translate-x-1/2 whitespace-nowrap text-center">
+          <p className="animate-in text-[18px] text-[#555555] mt-8">
             The rest are stuck.
           </p>
+        </section>
+      </div>
+
+      {/* DESKTOP LAYOUT -- original pin+scrub with absolute positioning */}
+      <div className="hidden md:block relative h-[160vh]">
+        <div
+          ref={pinnedRef}
+          className="h-screen w-full bg-[#050507] overflow-hidden relative flex items-center"
+        >
+          <div className="flex flex-row items-center justify-between w-full px-12 lg:px-[120px]">
+            {/* 79% */}
+            <div className="text-center">
+              <div className="left-num text-fluid-stat font-extrabold leading-none tracking-tighter text-[#E8E8E8] opacity-0">
+                79
+                <span
+                  className="text-[#888888]"
+                  style={{ fontSize: "clamp(24px, 6vw, 80px)" }}
+                >
+                  %
+                </span>
+              </div>
+              <p className="left-label text-[20px] text-[#888888] mt-2 opacity-0">
+                adopting
+              </p>
+            </div>
+
+            {/* 11% */}
+            <div className="text-center">
+              <div className="right-num text-fluid-stat font-extrabold leading-none tracking-tighter opacity-0">
+                <span className="gradient-text-accent">11</span>
+                <span
+                  className="text-[#888888]"
+                  style={{ fontSize: "clamp(24px, 6vw, 80px)" }}
+                >
+                  %
+                </span>
+              </div>
+              <p className="right-label text-[20px] text-[#888888] mt-2 opacity-0">
+                running
+              </p>
+            </div>
+
+            {/* Bottom verdict */}
+            <p className="bottom-text text-[20px] text-[#888888] opacity-0 absolute bottom-[15%] left-1/2 -translate-x-1/2 whitespace-nowrap text-center">
+              The rest are stuck.
+            </p>
+          </div>
         </div>
       </div>
     </div>

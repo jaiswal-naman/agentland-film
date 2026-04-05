@@ -17,18 +17,20 @@ const statements = [
 export default function SceneProblems() {
   const containerRef = useRef<HTMLDivElement>(null);
   const pinnedRef = useRef<HTMLDivElement>(null);
+  const mobileRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
       const container = containerRef.current;
       const pinned = pinnedRef.current;
-      if (!container || !pinned) return;
+      const mobile = mobileRef.current;
+      if (!container) return;
 
       const isMobile = window.innerWidth < 768;
 
       if (isMobile) {
-        // Mobile: each problem pair fades in when scrolled into view
-        const groups = pinned.querySelectorAll(".problem-group");
+        if (!mobile) return;
+        const groups = mobile.querySelectorAll(".animate-in");
         groups.forEach((group, i) => {
           gsap.fromTo(
             group,
@@ -51,6 +53,8 @@ export default function SceneProblems() {
       }
 
       // Desktop: existing pin+scrub logic
+      if (!pinned) return;
+
       const trigger = ScrollTrigger.create({
         trigger: container,
         start: "top top",
@@ -80,28 +84,51 @@ export default function SceneProblems() {
         tl.fromTo(
           wordEl,
           { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: segmentDuration * 0.15, ease: "power2.out" },
+          {
+            opacity: 1,
+            y: 0,
+            duration: segmentDuration * 0.15,
+            ease: "power2.out",
+          },
           start
         );
 
         // Word holds briefly
-        tl.to({}, { duration: segmentDuration * 0.1 }, start + segmentDuration * 0.15);
+        tl.to(
+          {},
+          { duration: segmentDuration * 0.1 },
+          start + segmentDuration * 0.15
+        );
 
         // Sentence fades in below word
         tl.fromTo(
           sentenceEl,
           { opacity: 0, y: 15 },
-          { opacity: 1, y: 0, duration: segmentDuration * 0.15, ease: "power2.out" },
+          {
+            opacity: 1,
+            y: 0,
+            duration: segmentDuration * 0.15,
+            ease: "power2.out",
+          },
           start + segmentDuration * 0.25
         );
 
         // Hold both
-        tl.to({}, { duration: segmentDuration * 0.3 }, start + segmentDuration * 0.4);
+        tl.to(
+          {},
+          { duration: segmentDuration * 0.3 },
+          start + segmentDuration * 0.4
+        );
 
         // Both fade out
         tl.to(
           [wordEl, sentenceEl],
-          { opacity: 0, y: -20, duration: segmentDuration * 0.2, ease: "power2.inOut" },
+          {
+            opacity: 0,
+            y: -20,
+            duration: segmentDuration * 0.2,
+            ease: "power2.inOut",
+          },
           start + segmentDuration * 0.7
         );
       });
@@ -114,27 +141,45 @@ export default function SceneProblems() {
   );
 
   return (
-    <div ref={containerRef} className="relative min-h-screen md:h-[200vh]">
-      <div
-        ref={pinnedRef}
-        className="min-h-screen md:h-screen w-full bg-[#050507] overflow-hidden flex items-center"
-      >
-        {/* Mobile: stacked naturally. Desktop: absolute positioned for pin/scrub */}
-        <div className="pl-6 sm:pl-12 lg:pl-[120px] pr-6 sm:pr-8 relative w-full py-24 md:py-0">
+    <div ref={containerRef}>
+      {/* MOBILE LAYOUT -- simple, flowing, no absolute, no vh heights */}
+      <div ref={mobileRef} className="md:hidden">
+        <section className="px-6 py-16 bg-[#050507]">
           {statements.map((item, i) => (
-            <div
-              key={i}
-              className="problem-group md:absolute py-8 md:py-0"
-              style={{ maxWidth: "640px" }}
-            >
-              <p className="problem-word text-[32px] md:text-[clamp(40px,7vw,60px)] font-bold text-[#E8E8E8] leading-tight md:opacity-0">
+            <div key={i} className="py-12 animate-in">
+              <p className="text-[28px] font-bold text-[#E8E8E8] mb-2">
                 {item.word}
               </p>
-              <p className="problem-sentence text-[18px] md:text-[clamp(20px,3vw,28px)] text-[#888] mt-3 leading-relaxed md:opacity-0">
-                {item.sentence}
-              </p>
+              <p className="text-[16px] text-[#888888]">{item.sentence}</p>
             </div>
           ))}
+        </section>
+      </div>
+
+      {/* DESKTOP LAYOUT -- original pin+scrub with absolute positioning */}
+      <div className="hidden md:block relative h-[200vh]">
+        <div
+          ref={pinnedRef}
+          className="h-screen w-full bg-[#050507] overflow-hidden flex items-center"
+        >
+          <div
+            className="pl-12 lg:pl-[120px] pr-8 relative w-full"
+          >
+            {statements.map((item, i) => (
+              <div
+                key={i}
+                className="problem-group absolute"
+                style={{ maxWidth: "640px" }}
+              >
+                <p className="problem-word text-[clamp(40px,7vw,60px)] font-bold text-[#E8E8E8] leading-tight opacity-0">
+                  {item.word}
+                </p>
+                <p className="problem-sentence text-[clamp(20px,3vw,28px)] text-[#888888] mt-3 leading-relaxed opacity-0">
+                  {item.sentence}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

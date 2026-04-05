@@ -13,57 +13,44 @@ const words = ["CONNECT", "DISCOVER", "BUILD", "DEPLOY", "MONITOR"];
 export default function SceneName() {
   const containerRef = useRef<HTMLDivElement>(null);
   const pinnedRef = useRef<HTMLDivElement>(null);
+  const mobileRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
       const container = containerRef.current;
       const pinned = pinnedRef.current;
-      if (!container || !pinned) return;
+      const mobile = mobileRef.current;
+      if (!container) return;
 
       const isMobile = window.innerWidth < 768;
 
       if (isMobile) {
-        // Mobile: simple fade-in, no character-by-character
-        const nameEl = pinned.querySelector(".name-text");
-        const wordsContainer = pinned.querySelector(".words-container");
-
-        gsap.fromTo(
-          nameEl,
-          { opacity: 0, y: 20 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: nameEl,
-              start: "top 85%",
-              toggleActions: "play none none none",
-            },
-          }
-        );
-
-        gsap.fromTo(
-          wordsContainer,
-          { opacity: 0, y: 15 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.6,
-            delay: 0.3,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: nameEl,
-              start: "top 85%",
-              toggleActions: "play none none none",
-            },
-          }
-        );
-
+        if (!mobile) return;
+        const elements = mobile.querySelectorAll(".animate-in");
+        elements.forEach((el, i) => {
+          gsap.fromTo(
+            el,
+            { opacity: 0, y: 20 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.6,
+              delay: i * 0.2,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: el,
+                start: "top 85%",
+                toggleActions: "play none none none",
+              },
+            }
+          );
+        });
         return;
       }
 
       // Desktop: existing pin+scrub logic with character animation
+      if (!pinned) return;
+
       const trigger = ScrollTrigger.create({
         trigger: container,
         start: "top top",
@@ -118,37 +105,53 @@ export default function SceneName() {
   );
 
   return (
-    <div ref={containerRef} className="relative min-h-[60vh] py-24 md:py-0 md:h-[140vh]">
-      <div
-        ref={pinnedRef}
-        className="min-h-[60vh] md:h-screen w-full bg-[#050507] overflow-hidden flex flex-col items-center justify-center"
-      >
-        {/* Name -- on mobile: single text block. On desktop: character-by-character */}
-        <h2 className="text-fluid-name font-extrabold tracking-tight leading-none">
-          {/* Mobile: single block fade */}
-          <span className="name-text md:hidden text-[#E8E8E8]">{name}</span>
-          {/* Desktop: per-character animation */}
-          <span className="hidden md:inline">
+    <div ref={containerRef}>
+      {/* MOBILE LAYOUT -- simple, flowing, no absolute, no vh heights */}
+      <div ref={mobileRef} className="md:hidden">
+        <section className="min-h-[60vh] flex flex-col items-center justify-center px-6 py-20 bg-[#050507]">
+          <h2 className="animate-in text-[36px] font-bold tracking-tighter text-[#E8E8E8]">
+            AgentLand
+          </h2>
+          <p className="animate-in text-[12px] text-[#888888] tracking-[0.2em] uppercase mt-6 text-center">
+            CONNECT &middot; DISCOVER &middot; BUILD &middot; DEPLOY &middot;
+            MONITOR
+          </p>
+        </section>
+      </div>
+
+      {/* DESKTOP LAYOUT -- original pin+scrub with absolute positioning */}
+      <div className="hidden md:block relative h-[140vh]">
+        <div
+          ref={pinnedRef}
+          className="h-screen w-full bg-[#050507] overflow-hidden flex flex-col items-center justify-center"
+        >
+          {/* Name: per-character animation */}
+          <h2 className="text-fluid-name font-extrabold tracking-tight leading-none">
             {name.split("").map((char, i) => (
-              <span key={i} className="name-char inline-block opacity-0 text-[#E8E8E8]">
+              <span
+                key={i}
+                className="name-char inline-block opacity-0 text-[#E8E8E8]"
+              >
                 {char}
               </span>
             ))}
-          </span>
-        </h2>
+          </h2>
 
-        {/* Sub-words */}
-        <div className="words-container mt-4 sm:mt-8 flex items-center gap-2 sm:gap-4 flex-wrap justify-center px-4">
-          {words.map((word, i) => (
-            <span key={i} className="flex items-center gap-2 sm:gap-4">
-              <span className="sub-word text-[12px] sm:text-[18px] md:text-[24px] text-[#888888] tracking-[0.15em] sm:tracking-[0.3em] uppercase md:opacity-0">
-                {word}
+          {/* Sub-words */}
+          <div className="mt-8 flex items-center gap-4 flex-wrap justify-center px-4">
+            {words.map((word, i) => (
+              <span key={i} className="flex items-center gap-4">
+                <span className="sub-word text-[18px] md:text-[24px] text-[#888888] tracking-[0.3em] uppercase opacity-0">
+                  {word}
+                </span>
+                {i < words.length - 1 && (
+                  <span className="text-[#333333] text-[12px] opacity-50">
+                    &middot;
+                  </span>
+                )}
               </span>
-              {i < words.length - 1 && (
-                <span className="text-[#333333] text-[12px] opacity-50">&middot;</span>
-              )}
-            </span>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>

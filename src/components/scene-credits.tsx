@@ -39,7 +39,9 @@ function FAQItem({ q, a }: { q: string; a: string }) {
         onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-between py-5 text-left group"
       >
-        <span className="text-[14px] md:text-[16px] font-medium text-[#E8E8E8]">{q}</span>
+        <span className="text-[14px] md:text-[16px] font-medium text-[#E8E8E8]">
+          {q}
+        </span>
         <svg
           className={`w-5 h-5 text-[#888888] transition-transform duration-300 flex-shrink-0 ml-4 ${open ? "rotate-45" : ""}`}
           fill="none"
@@ -58,7 +60,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
         className="overflow-hidden transition-all duration-300"
         style={{ maxHeight: open ? "200px" : "0px", opacity: open ? 1 : 0 }}
       >
-        <p className="pb-5 text-[14px] sm:text-[15px] md:text-[18px] text-[#888888] leading-relaxed">
+        <p className="pb-5 text-[14px] md:text-[18px] text-[#888888] leading-relaxed">
           {a}
         </p>
       </div>
@@ -102,12 +104,12 @@ export default function SceneCredits() {
       {/* Founder quote */}
       <section className="pt-20 sm:pt-40 pb-12 sm:pb-24 px-4 sm:px-6 lg:px-8">
         {/* Horizontal rule above founder section */}
-        <div className="w-16 h-px bg-[#1A1A1A] ml-6 sm:ml-12 lg:ml-[120px] mb-16" />
+        <div className="w-16 h-px bg-[#1A1A1A] ml-4 sm:ml-12 lg:ml-[120px] mb-16" />
 
-        <div className="credit-animate max-w-xl pl-6 sm:pl-12 lg:pl-[120px]">
+        <div className="credit-animate max-w-xl pl-4 sm:pl-12 lg:pl-[120px]">
           {/* Decorative quote mark */}
           <div
-            className="text-[60px] sm:text-[80px] md:text-[120px] leading-none font-serif select-none -mb-6 sm:-mb-10 md:-mb-14"
+            className="text-[48px] sm:text-[80px] md:text-[120px] leading-none font-serif select-none -mb-4 sm:-mb-10 md:-mb-14"
             style={{ color: "#1A1A1A" }}
           >
             &ldquo;
@@ -115,7 +117,10 @@ export default function SceneCredits() {
 
           <blockquote className="text-[18px] sm:text-[22px] md:text-[24px] italic text-[#E8E8E8] leading-relaxed tracking-tight mb-6">
             The bottleneck was never intelligence. It was the{" "}
-            <span className="text-[#6366F1] font-semibold not-italic">missing layer</span>.
+            <span className="text-[#6366F1] font-semibold not-italic">
+              missing layer
+            </span>
+            .
           </blockquote>
 
           <div className="text-[18px] text-[#888888]">Naman Jaiswal</div>
@@ -128,10 +133,10 @@ export default function SceneCredits() {
       {/* Final CTA */}
       <section className="pt-20 sm:pt-40 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 text-center">
         <div className="credit-animate">
-          <h2 className="text-[32px] md:text-fluid-heading font-bold tracking-tight leading-none text-[#E8E8E8]">
+          <h2 className="text-[28px] md:text-fluid-heading font-bold tracking-tight leading-none text-[#E8E8E8]">
             Your business.
           </h2>
-          <h2 className="text-[32px] md:text-fluid-heading font-bold tracking-tight leading-none text-[#6366F1] mt-2">
+          <h2 className="text-[28px] md:text-fluid-heading font-bold tracking-tight leading-none text-[#6366F1] mt-2">
             Automated.
           </h2>
         </div>
